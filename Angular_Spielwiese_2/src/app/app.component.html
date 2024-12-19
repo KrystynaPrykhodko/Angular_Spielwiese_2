@@ -10,12 +10,17 @@
 <style>
 </style>
 
-<main class="main">
-  <div class="content">
-    <!-- Hier wird die Tabelle eingebunden -->
+<div class="container">
+  <aside class="sidebar">
     <app-sidebar></app-sidebar>
-    <app-create></app-create>
-    <app-table></app-table>
-  </div>
-</main>
+  </aside>
+  <main class="main-content">
+    <div class="create-container">
+      <app-create></app-create>
+    </div>
+    <section class="table-container">
+      <app-table></app-table>
+    </section>
+  </main>  
+</div>
 <router-outlet />

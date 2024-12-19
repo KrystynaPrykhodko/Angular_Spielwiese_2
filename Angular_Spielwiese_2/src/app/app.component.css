@@ -1,0 +1,34 @@
+/* Hauptcontainer: Flexbox Layout */
+.container {
+    display: flex;
+    height: 100vh;
+  }
+  
+  /* Sidebar */
+  .sidebar {
+    width: 20%; /* Breite der Sidebar */
+    background-color: #f4f4f4; /* Optional: Hintergrundfarbe */
+    border-right: 1px solid #ccc;
+    padding: 1rem;
+  }
+  
+  /* Hauptbereich */
+  .main-content {
+    flex: 1; /* Hauptbereich nimmt den verbleibenden Platz ein */
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Create-Button Bereich (oben rechts) */
+  .create-container {
+    text-align: right;
+    padding: 1rem;
+    background-color: #f9f9f9; /* Optional: Hintergrundfarbe */
+  }
+  
+  /* Table-Bereich */
+  .table-container {
+    flex: 1;
+    padding: 1rem;
+    overflow-y: auto; /* Scrollen ermöglichen, falls nötig */
+  }
