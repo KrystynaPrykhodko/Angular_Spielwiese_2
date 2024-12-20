@@ -1,34 +1,55 @@
-/* Hauptcontainer: Flexbox Layout */
 .container {
     display: flex;
     height: 100vh;
+    overflow: hidden; /* Kein Scrollen innerhalb des Containers */
+    position: relative;
   }
   
-  /* Sidebar */
+  app-hamburger {
+    position: fixed;
+    top: 1rem;
+    left: 1rem;
+    z-index: 1000; /* Immer sichtbar, auch wenn die Sidebar geöffnet ist */
+  }
+  
   .sidebar {
-    width: 20%; /* Breite der Sidebar */
-    background-color: #f4f4f4; /* Optional: Hintergrundfarbe */
+    width: 0;
+    transition: width 0.3s ease-in-out;
+    background-color: #f4f4f4;
+    overflow: hidden;
+    height: 100%;
+    position: fixed;
+    left: 0;
+    top: 0;
     border-right: 1px solid #ccc;
-    padding: 1rem;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
   }
   
-  /* Hauptbereich */
+  .sidebar.open {
+    width: 20%; 
+  }
+  
+  
+  /* Hauptinhalt */
   .main-content {
-    flex: 1; /* Hauptbereich nimmt den verbleibenden Platz ein */
-    display: flex;
-    flex-direction: column;
+    margin-left: 0; /* Standard ohne Sidebar */
+    transition: margin-left 0.3s ease-in-out;
+    flex: 1;
+    padding: 2rem;
+    overflow-y: auto; /* Ermöglicht Scrollen, falls der Inhalt größer als der Viewport ist */
+  }
+  
+  .sidebar.open + .main-content {
+    margin-left: 20%; /* Platz für die geöffnete Sidebar */
   }
   
   /* Create-Button Bereich (oben rechts) */
   .create-container {
     text-align: right;
-    padding: 1rem;
-    background-color: #f9f9f9; /* Optional: Hintergrundfarbe */
+    margin-bottom: 1rem;
   }
   
   /* Table-Bereich */
   .table-container {
     flex: 1;
-    padding: 1rem;
-    overflow-y: auto; /* Scrollen ermöglichen, falls nötig */
   }

@@ -1,19 +1,11 @@
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * The content below * * * * * * * * * * * -->
-<!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * -->
-<!-- * * * * * * * * * * and can be replaced.  * * * * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * Delete the template below * * * * * * * * * -->
-<!-- * * * * * * * to get started with your project! * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-
-<style>
-</style>
-
-<div class="container">
-  <aside class="sidebar">
+<div class="container">   
+  
+  <app-hamburger (toggle)="toggleSidebar()"></app-hamburger>
+  
+  <aside class="sidebar" [class.open]="isSidebarOpen">  
     <app-sidebar></app-sidebar>
   </aside>
+  
   <main class="main-content">
     <div class="create-container">
       <app-create></app-create>
@@ -23,4 +15,5 @@
     </section>
   </main>  
 </div>
+
 <router-outlet />
