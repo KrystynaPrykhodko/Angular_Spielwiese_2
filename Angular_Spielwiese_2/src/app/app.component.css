@@ -26,9 +26,8 @@
   }
   
   .sidebar.open {
-    width: 20%; 
+    width: 15%; 
   }
-  
   
   /* Hauptinhalt */
   .main-content {
@@ -40,7 +39,7 @@
   }
   
   .sidebar.open + .main-content {
-    margin-left: 20%; /* Platz für die geöffnete Sidebar */
+    margin-left: 15%; /* Platz für die geöffnete Sidebar */
   }
   
   /* Create-Button Bereich (oben rechts) */
