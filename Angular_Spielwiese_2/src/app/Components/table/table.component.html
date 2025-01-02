@@ -1,3 +1,5 @@
+
+<!--
 <table border="1" style="width: 100%; border-collapse: collapse;">
     <thead>
       <tr>
@@ -24,3 +26,25 @@
         </tr>
     </tbody>
   </table>
+-->
+
+<table border="1" style="width: 100%; border-collapse: collapse;">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Author</th>
+      <th>Publication Date</th>
+      <th>Genre</th>
+      <th>Price</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let book of books$ | async">
+      <td>{{ book.title }}</td>
+      <td>{{ book.author.name }}</td>
+      <td>{{ book.publicationDate | date: 'mediumDate' }}</td>
+      <td>{{ book.genre || 'N/A' }}</td>
+      <td>{{ book.price | currency }}</td>
+    </tr>
+  </tbody>
+</table>
