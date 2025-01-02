@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { SidebarComponent } from './Components/sidebar/sidebar.component';
-import { CreateComponent } from './Components/create/create.component';
-import { TableComponent } from './Components/table/table.component';
-import { HamburgerComponent } from "./Components/hamburger/hamburger.component";
+import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { CreateComponent } from './components/create/create.component';
+import { TableComponent } from './components/table/table.component';
+import { HamburgerComponent } from "./components/hamburger/hamburger.component";
 
 
 @Component({
