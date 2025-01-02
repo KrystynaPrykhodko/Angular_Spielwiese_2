@@ -1,17 +1,3 @@
-/*
-import { Component } from '@angular/core';
-
-@Component({
-  selector: 'app-table',
-  imports: [],
-  templateUrl: './table.component.html',
-  styleUrl: './table.component.css'
-})
-export class TableComponent {
-
-}
-*/
-
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -37,5 +23,17 @@ export class TableComponent implements OnInit {
     this.books$.subscribe((books) => {
       console.log('Books aus Store:', books); // Überprüfen, ob die Bücher geladen werden
     });
+  }
+
+  editBook(book: Book): void {
+    console.log('Buch bearbeiten:', book);
+  }
+
+  deleteBook(book: Book): void {
+    console.log('Buch bearbeiten:', book);
+  }
+
+  viewBook(book: Book): void {
+    console.log('Buch bearbeiten:', book);
   }
 }

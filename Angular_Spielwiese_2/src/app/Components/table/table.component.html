@@ -45,6 +45,11 @@
       <td>{{ book.publicationDate | date: 'mediumDate' }}</td>
       <td>{{ book.genre || 'N/A' }}</td>
       <td>{{ book.price | currency }}</td>
+      <td>
+        <button (click)="editBook(book)">Edit</button>
+        <button (click)="deleteBook(book)">Delete</button>
+        <button (click)="viewBook(book)">View</button>
+      </td>
     </tr>
   </tbody>
 </table>
