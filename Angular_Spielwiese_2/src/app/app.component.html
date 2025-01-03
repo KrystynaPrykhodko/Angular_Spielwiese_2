@@ -16,7 +16,7 @@
 
     @if (isFormVisible) {
       <section class="form-container">
-        <app-book-form></app-book-form>
+        <app-book-form (cancelClicked)="hideForm()"></app-book-form>
       </section>
     }
    

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-book-form',
@@ -7,5 +7,9 @@ import { Component } from '@angular/core';
   styleUrl: './book-form.component.css'
 })
 export class BookFormComponent {
+  @Output() cancelClicked = new EventEmitter<void>();
 
+  onCancel(): void {
+    this.cancelClicked.emit();
+  }
 }

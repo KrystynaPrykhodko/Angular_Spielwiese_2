@@ -27,4 +27,9 @@ export class AppComponent {
   showForm() : void { 
     this.isFormVisible = true;
   }
+
+  hideForm() : void {
+    this.isFormVisible = false;
+  }
+
 }
