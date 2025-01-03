@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-create',
@@ -7,5 +7,9 @@ import { Component } from '@angular/core';
   styleUrl: './create.component.css'
 })
 export class CreateComponent {
+  @Output () createClicked = new EventEmitter<void>();
 
+  onCreate(): void {
+    this.createClicked.emit();
+  }
 }

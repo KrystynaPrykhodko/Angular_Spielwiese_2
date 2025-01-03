@@ -8,11 +8,18 @@
   
   <main class="main-content">
     <div class="create-container">
-      <app-create></app-create>
+      <app-create (createClicked)="showForm()"></app-create>
     </div>
     <section class="table-container">
       <app-table></app-table>
     </section>
+
+    @if (isFormVisible) {
+      <section class="form-container">
+        <app-book-form></app-book-form>
+      </section>
+    }
+   
   </main>  
 </div>
 
