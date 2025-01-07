@@ -6,16 +6,19 @@ import { AppState } from '../../store/app.state';
 import { selectAllBooks } from '../../store/books/books.selectors';
 import { DatePipe, CommonModule } from '@angular/common';
 
+import { Router } from '@angular/router'; 
+
 @Component({
   selector: 'app-table',
   templateUrl: './table.component.html',
+  styleUrls: ['./table.component.css'],
   imports: [DatePipe, CommonModule],
 })
-export class TableComponent implements OnInit {
+export class TableComponent implements OnInit {                    
   books$: Observable<Book[]>;
 
-  constructor(private store: Store<AppState>) {
-    this.books$ = this.store.select(selectAllBooks);
+  constructor(private store: Store<AppState>, private router: Router) {
+    this.books$ = this.store.select(selectAllBooks);                      console.log(' + TableComponent geladen');
   }
 
   ngOnInit(): void {
@@ -30,10 +33,16 @@ export class TableComponent implements OnInit {
   }
 
   deleteBook(book: Book): void {
-    console.log('Buch bearbeiten:', book);
+    console.log('Buch löschen:', book);
   }
 
   viewBook(book: Book): void {
-    console.log('Buch bearbeiten:', book);
+    console.log('Buch anzeigen:', book);
   }
+
+  navigateToCreate(): void {  
+    console.log('Navigiere zu Create');
+    this.router.navigate(['/create']);
+  }
+
 }

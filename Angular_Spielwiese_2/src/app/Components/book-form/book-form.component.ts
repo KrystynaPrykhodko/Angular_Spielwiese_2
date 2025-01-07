@@ -24,7 +24,7 @@ export class BookFormComponent {
       authorName: ['', Validators.required],
       genre: ['', Validators.required],
       price: [0, [Validators.required, Validators.min(0)]],
-    });
+    });                                                                             console.log('+ BookFormComponent geladen');
   }
 
   ngOnChanges(changes: SimpleChanges): void {

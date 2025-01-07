@@ -1,22 +1,18 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
-import { CreateComponent } from './components/create/create.component';
-import { TableComponent } from './components/table/table.component';
 import { HamburgerComponent } from "./components/hamburger/hamburger.component";
-import { BookFormComponent } from "./components/book-form/book-form.component";
 import { Book } from './models/book.model';
 
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, CreateComponent, TableComponent, SidebarComponent, HamburgerComponent, BookFormComponent],
+  imports: [RouterOutlet, SidebarComponent, HamburgerComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
 export class AppComponent {
   isSidebarOpen = false;
-  isFormVisible = false;
   selectedBook: Book | null = null;
 
   toggleSidebar() : void {
@@ -37,16 +33,5 @@ export class AppComponent {
       genre: '',
       price: 0,
     }
-
-    this.showForm();     console.log('->', this.selectedBook);
   }
-
-  showForm() : void { 
-    this.isFormVisible = true;
-  }
-
-  hideForm() : void {
-    this.isFormVisible = false;
-  }
-
 }

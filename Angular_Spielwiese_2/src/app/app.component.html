@@ -5,25 +5,8 @@
   <aside class="sidebar" [class.open]="isSidebarOpen">  
     <app-sidebar></app-sidebar>
   </aside>
-  
+
   <main class="main-content">
-    <div class="create-container">
-      <app-create (createClicked)="showFormForCreate()"></app-create>
-    </div>
-    <section class="table-container">
-      <app-table></app-table>
-    </section>
-
-    @if (isFormVisible) {
-      <section class="form-container">
-        <app-book-form 
-          [book]="selectedBook"
-          (cancelClicked)="hideForm()"
-          ></app-book-form>
-      </section>
-    }
-   
-  </main>  
+    <router-outlet></router-outlet> 
+  </main>
 </div>
-
-<router-outlet />
