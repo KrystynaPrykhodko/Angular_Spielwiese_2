@@ -15,6 +15,9 @@ export const appConfig: ApplicationConfig = {
     provideRouter([
       { path: '', component: TableComponent },
       { path: 'create', component: BookFormComponent },
+  //    { path: '/view/:bookid', component: BookFormComponent },
+  //    { path: 'edit/:bookid', component: BookFormComponent },
+      
     ]),
     provideStore({ books: booksReducer }), // Registriere den booksReducer
     provideStoreDevtools(), // Fügt die Redux DevTools hinzu  // für DEBUGGING

@@ -13,13 +13,13 @@ import { Book } from './models/book.model';
 })
 export class AppComponent {
   isSidebarOpen = false;
-  selectedBook: Book | null = null;
+//  selectedBook: Book | null = null;
 
   toggleSidebar() : void {
     this.isSidebarOpen = !this.isSidebarOpen;
   }
 
-  showFormForCreate() : void {
+/*  showFormForCreate() : void {
     this.selectedBook = {
       id: 0, // Temporär oder generisch
       title: '',
@@ -33,5 +33,5 @@ export class AppComponent {
       genre: '',
       price: 0,
     }
-  }
-}
+  } */
+} 

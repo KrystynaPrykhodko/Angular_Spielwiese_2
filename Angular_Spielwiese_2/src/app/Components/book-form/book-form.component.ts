@@ -1,4 +1,5 @@
 import { Component, Input, Output, EventEmitter, SimpleChanges } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { ReactiveFormsModule, FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
@@ -17,14 +18,22 @@ export class BookFormComponent {
 
   bookForm: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private route: ActivatedRoute) {
     this.bookForm = this.fb.group({
       title: ['', Validators.required],
       publicationDate: [null, Validators.required],
       authorName: ['', Validators.required],
       genre: ['', Validators.required],
       price: [0, [Validators.required, Validators.min(0)]],
-    });                                                                             console.log('+ BookFormComponent geladen');
+    });
+  }
+
+  ngOnInit(): void {
+    this.route.queryParams.subscribe((params) => {
+      if (params['title']) {
+        this.bookForm.patchValue({ title: params['title'] });
+      }
+    });
   }
 
   ngOnChanges(changes: SimpleChanges): void {

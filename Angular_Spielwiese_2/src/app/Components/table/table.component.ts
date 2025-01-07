@@ -18,7 +18,7 @@ export class TableComponent implements OnInit {
   books$: Observable<Book[]>;
 
   constructor(private store: Store<AppState>, private router: Router) {
-    this.books$ = this.store.select(selectAllBooks);                      console.log(' + TableComponent geladen');
+    this.books$ = this.store.select(selectAllBooks);
   }
 
   ngOnInit(): void {
@@ -40,9 +40,9 @@ export class TableComponent implements OnInit {
     console.log('Buch anzeigen:', book);
   }
 
-  navigateToCreate(): void {  
-    console.log('Navigiere zu Create');
-    this.router.navigate(['/create']);
+  createBook(): void {  
+    this.router.navigate(['/create'], { queryParams: { title: 'Neues Buch' } });
+    
   }
 
 }
