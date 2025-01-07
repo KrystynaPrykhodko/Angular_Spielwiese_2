@@ -8,7 +8,7 @@
   
   <main class="main-content">
     <div class="create-container">
-      <app-create (createClicked)="showForm()"></app-create>
+      <app-create (createClicked)="showFormForCreate()"></app-create>
     </div>
     <section class="table-container">
       <app-table></app-table>
@@ -16,7 +16,10 @@
 
     @if (isFormVisible) {
       <section class="form-container">
-        <app-book-form (cancelClicked)="hideForm()"></app-book-form>
+        <app-book-form 
+          [book]="selectedBook"
+          (cancelClicked)="hideForm()"
+          ></app-book-form>
       </section>
     }
    

@@ -14,15 +14,31 @@ import { BookFormComponent } from "./components/book-form/book-form.component";
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  // sidebar
   isSidebarOpen = false;
+  isFormVisible = false;
+  selectedBook: any = null;
 
   toggleSidebar() : void {
     this.isSidebarOpen = !this.isSidebarOpen;
   }
 
-  // formular
-  isFormVisible = false;
+  showFormForCreate() : void {
+    this.selectedBook = {
+      id: 0, // Temporär oder generisch
+      title: '',
+      publicationDate: null as any as Date,
+      author: {
+        id: 0,
+        name: '',
+        birthDate: null as any as Date,
+        nationality: '',
+      },
+      genre: '',
+      price: 0,
+    }
+
+    this.showForm();     console.log('->', this.selectedBook);
+  }
 
   showForm() : void { 
     this.isFormVisible = true;
