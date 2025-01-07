@@ -5,6 +5,7 @@ import { CreateComponent } from './components/create/create.component';
 import { TableComponent } from './components/table/table.component';
 import { HamburgerComponent } from "./components/hamburger/hamburger.component";
 import { BookFormComponent } from "./components/book-form/book-form.component";
+import { Book } from './models/book.model';
 
 
 @Component({
@@ -16,7 +17,7 @@ import { BookFormComponent } from "./components/book-form/book-form.component";
 export class AppComponent {
   isSidebarOpen = false;
   isFormVisible = false;
-  selectedBook: any = null;
+  selectedBook: Book | null = null;
 
   toggleSidebar() : void {
     this.isSidebarOpen = !this.isSidebarOpen;
