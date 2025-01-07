@@ -30,7 +30,7 @@ export class AppComponent {
       publicationDate: null as any as Date,
       author: {
         id: 0,
-        name: '',
+        name: 'autor',
         birthDate: null as any as Date,
         nationality: '',
       },
