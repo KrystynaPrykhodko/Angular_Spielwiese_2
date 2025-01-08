@@ -29,15 +29,15 @@ export class TableComponent implements OnInit {
   }
 
   editBook(book: Book): void {
-    console.log('Buch bearbeiten:', book);
+    this.router.navigate(['/edit', book.id]);
   }
 
   deleteBook(book: Book): void {
-    console.log('Buch löschen:', book);
+    this.router.navigate(['/delete', book.id]);
   }
 
   viewBook(book: Book): void {
-    console.log('Buch anzeigen:', book);
+    this.router.navigate(['/view', book.id]);
   }
 
   createBook(): void {  

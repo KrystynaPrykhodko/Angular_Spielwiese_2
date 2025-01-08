@@ -1,5 +1,7 @@
 import { Component, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { AppState } from '../../store/app.state'; // Adjust the path as necessary
 import { ReactiveFormsModule, FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
@@ -17,7 +19,11 @@ export class BookFormComponent {
 
   bookForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private route: ActivatedRoute) {
+  constructor(
+    private fb: FormBuilder, 
+    private route: ActivatedRoute,
+    private store: Store<AppState>
+  ) {
     this.bookForm = this.fb.group({
       title: ['', Validators.required],
       publicationDate: [null, Validators.required],
