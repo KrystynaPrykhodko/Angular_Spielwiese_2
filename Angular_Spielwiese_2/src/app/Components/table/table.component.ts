@@ -29,6 +29,7 @@ export class TableComponent implements OnInit {
   }
 
   editBook(book: Book): void {
+    console.log('Navigiere zu Ansicht:', book); // Debugging
     this.router.navigate(['/edit', book.id]);
   }
 
@@ -41,17 +42,7 @@ export class TableComponent implements OnInit {
   }
 
   createBook(): void {  
-    this.router.navigate(['/create'], { 
-      queryParams: { 
-        id: 0, 
-        title: 'Neues Buch',
-        publicationDate: new Date(), 
-        authorName: 'Max Mustermann',
-        genre: '',
-        price: 0
-        } 
-      });
-    
+    this.router.navigate(['/create']);
   }
 
 }

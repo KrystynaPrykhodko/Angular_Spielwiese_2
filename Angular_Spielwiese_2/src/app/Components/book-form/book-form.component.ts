@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../store/app.state'; // Adjust the path as necessary
 import { ReactiveFormsModule, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { selectAllBooks } from '../../store/books/books.selectors';
 
 @Component({
   selector: 'app-book-form',
@@ -12,12 +13,10 @@ import { ReactiveFormsModule, FormGroup, FormBuilder, Validators } from '@angula
 })
 export class BookFormComponent {
   @Output() cancelClicked = new EventEmitter<void>();
-
-  onSubmit(): void {
-    console.log('Formular abgeschickt:', this.bookForm.value);
-  } 
-
   bookForm: FormGroup;
+  isViewMode: boolean = false;
+
+  
 
   constructor(
     private fb: FormBuilder, 
@@ -34,18 +33,44 @@ export class BookFormComponent {
   }
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe((params) => {
-      if (params['title']) {
-        this.bookForm.patchValue({ 
-          id: params['id'],
-          title: params['title'], 
-          publicationDate: params['publicationDate'],
-          authorName: params['authorName'],
-          genre: params['genre'],
-          price: params['price']
+    this.route.paramMap.subscribe((params) => {
+      const bookId = params.get('bookId');
+      const currentPath = this.route.snapshot.routeConfig?.path;
+
+      if (currentPath === 'create') {
+        // CREATE: Initialisiere leeres Buch
+        this.bookForm.reset({
+          title: 'Neues Buch',
+          publicationDate: null,
+          authorName: 'Max Mustermann',
+          genre: '',
+          price: 0,
+        });
+      } else if (bookId) {
+        // VIEW oder EDIT: Buch laden
+        this.store.select(selectAllBooks).subscribe((books) => {
+          const book = books.find((b) => b.id === Number(bookId));
+          if (book) {
+            this.bookForm.patchValue({
+              title: book.title,
+              publicationDate: book.publicationDate,
+              authorName: book.author.name,
+              genre: book.genre,
+              price: book.price,
+            });
+            if (currentPath?.startsWith('view')) {
+              this.isViewMode = true;
+              this.bookForm.disable(); // Form deaktivieren im Ansicht-Modus
+            }
+          }
         });
       }
     });
+  }
+
+  onSubmit(): void {
+    if (this.isViewMode) return; // Keine Aktionen im Ansicht-Modus
+    console.log('Formular abgeschickt:', this.bookForm.value);
   }
 
   onCancel(): void {

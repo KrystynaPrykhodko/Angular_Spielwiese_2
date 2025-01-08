@@ -15,9 +15,9 @@ export const appConfig: ApplicationConfig = {
     provideRouter([
       { path: '', component: TableComponent },
       { path: 'create', component: BookFormComponent },
-      { path: 'edit/:bookid', component: BookFormComponent },
-      { path: 'view/:bookid', component: BookFormComponent },
-      { path: 'delete/:bookid', component: BookFormComponent },
+      { path: 'edit/:bookId', component: BookFormComponent },
+      { path: 'view/:bookId', component: BookFormComponent },
+      { path: 'delete/:bookId', component: BookFormComponent },
       
     ]),
     provideStore({ books: booksReducer }), // Registriere den booksReducer

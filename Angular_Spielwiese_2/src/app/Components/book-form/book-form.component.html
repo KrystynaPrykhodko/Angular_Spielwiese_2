@@ -20,5 +20,5 @@
     <br />
   
     <button type="cancel" (click)="onCancel()">Cancel</button>
-    <button type="submit">Save</button>
+    <button type="submit" [disabled]="isViewMode">Save</button>
 </form>
