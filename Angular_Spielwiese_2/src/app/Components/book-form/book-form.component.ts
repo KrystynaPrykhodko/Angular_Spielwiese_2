@@ -1,9 +1,10 @@
 import { Component, Output, EventEmitter } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../store/app.state'; // Adjust the path as necessary
 import { ReactiveFormsModule, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { selectAllBooks } from '../../store/books/books.selectors';
+import { createBook } from '../../store/books/books.actions';
 
 @Component({
   selector: 'app-book-form',
@@ -16,12 +17,11 @@ export class BookFormComponent {
   bookForm: FormGroup;
   isViewMode: boolean = false;
 
-  
-
   constructor(
     private fb: FormBuilder, 
     private route: ActivatedRoute,
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    private router: Router
   ) {
     this.bookForm = this.fb.group({
       title: ['', Validators.required],
@@ -71,9 +71,29 @@ export class BookFormComponent {
   onSubmit(): void {
     if (this.isViewMode) return; // Keine Aktionen im Ansicht-Modus
     console.log('Formular abgeschickt:', this.bookForm.value);
+
+    const currentPath = this.route.snapshot.routeConfig?.path;
+    const newBook = {
+      id: Math.floor(Math.random() * 1000),
+      title: this.bookForm.value.title,
+      publicationDate: this.bookForm.value.publicationDate,
+      author: { 
+        id: Math.floor(Math.random() * 1000),
+        name: this.bookForm.value.authorName,
+        birthDate: new Date() // or any default date
+      },
+      genre: this.bookForm.value.genre,
+      price: this.bookForm.value.price,
+    };
+
+    if (currentPath === 'create') {
+      this.store.dispatch(createBook({ book: newBook }));
+      this.router.navigate(['/']);
+    }
   }
 
   onCancel(): void {
     this.cancelClicked.emit();
+    this.router.navigate(['/']);
   }
 }
