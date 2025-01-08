@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { AppState } from '../../store/app.state'; // Adjust the path as necessary
 import { ReactiveFormsModule, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { selectAllBooks } from '../../store/books/books.selectors';
-import { createBook } from '../../store/books/books.actions';
+import { createBook, editBook } from '../../store/books/books.actions';
 
 @Component({
   selector: 'app-book-form',
@@ -73,8 +73,22 @@ export class BookFormComponent {
     console.log('Formular abgeschickt:', this.bookForm.value);
 
     const currentPath = this.route.snapshot.routeConfig?.path;
+
     const newBook = {
       id: Math.floor(Math.random() * 1000),
+      title: this.bookForm.value.title,
+      publicationDate: this.bookForm.value.publicationDate,
+      author: { 
+        id: Math.floor(Math.random() * 1000),
+        name: this.bookForm.value.authorName,
+        birthDate: new Date() // or any default date
+      },
+      genre: this.bookForm.value.genre,
+      price: this.bookForm.value.price,
+    };
+
+    const existBook = {
+      id: Number(this.route.snapshot.paramMap.get('bookId')),
       title: this.bookForm.value.title,
       publicationDate: this.bookForm.value.publicationDate,
       author: { 
@@ -89,6 +103,10 @@ export class BookFormComponent {
     if (currentPath === 'create') {
       this.store.dispatch(createBook({ book: newBook }));
       this.router.navigate(['/']);
+    } else if (currentPath === 'edit/:bookId') {
+      this.store.dispatch(editBook({ book: existBook }));
+      this.router.navigate(['/']);
+
     }
   }
 
