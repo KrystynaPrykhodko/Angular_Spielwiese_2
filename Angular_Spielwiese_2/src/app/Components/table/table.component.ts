@@ -41,7 +41,16 @@ export class TableComponent implements OnInit {
   }
 
   createBook(): void {  
-    this.router.navigate(['/create'], { queryParams: { title: 'Neues Buch' } });
+    this.router.navigate(['/create'], { 
+      queryParams: { 
+        id: 0, 
+        title: 'Neues Buch',
+        publicationDate: new Date(), 
+        authorName: 'Max Mustermann',
+        genre: '',
+        price: 0
+        } 
+      });
     
   }
 

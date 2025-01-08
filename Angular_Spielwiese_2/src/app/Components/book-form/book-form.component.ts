@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, SimpleChanges } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ReactiveFormsModule, FormGroup, FormBuilder, Validators } from '@angular/forms';
 
@@ -9,7 +9,6 @@ import { ReactiveFormsModule, FormGroup, FormBuilder, Validators } from '@angula
   styleUrl: './book-form.component.css'
 })
 export class BookFormComponent {
-  @Input() book: any;
   @Output() cancelClicked = new EventEmitter<void>();
 
   onSubmit(): void {
@@ -31,23 +30,16 @@ export class BookFormComponent {
   ngOnInit(): void {
     this.route.queryParams.subscribe((params) => {
       if (params['title']) {
-        this.bookForm.patchValue({ title: params['title'] });
+        this.bookForm.patchValue({ 
+          id: params['id'],
+          title: params['title'], 
+          publicationDate: params['publicationDate'],
+          authorName: params['authorName'],
+          genre: params['genre'],
+          price: params['price']
+        });
       }
     });
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    console.log('ngOnChanges called', changes);  // Debugging
-
-    if (changes['book'] && changes['book'].currentValue) {
-      this.bookForm.patchValue({
-        title: this.book.title,
-        publicationDate: this.book.publicationDate,
-        authorName: this.book.author.name,
-        genre: this.book.genre,
-        price: this.book.price,
-      });
-    }
   }
 
   onCancel(): void {
