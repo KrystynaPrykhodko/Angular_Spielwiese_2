@@ -22,3 +22,11 @@
     <button type="cancel" (click)="onCancel()">Cancel</button>
     <button type="submit" [disabled]="isViewMode">Save</button>
 </form>
+
+@if (isDeleteMode) {
+<div>
+    <p>Möchten Sie das Buch "{{ bookForm.value.title }}" wirklich löschen?</p>
+    <button (click)="confirmDelete()">Ja</button>
+    <button (click)="cancelDelete()">Nein</button>
+</div>
+}

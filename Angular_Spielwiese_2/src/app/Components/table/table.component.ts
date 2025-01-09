@@ -5,6 +5,7 @@ import { Book } from '../../models/book.model';
 import { AppState } from '../../store/app.state';
 import { selectAllBooks } from '../../store/books/books.selectors';
 import { DatePipe, CommonModule } from '@angular/common';
+import { deleteBook } from '../../store/books/books.actions';
 
 import { Router } from '@angular/router'; 
 
@@ -29,7 +30,6 @@ export class TableComponent implements OnInit {
   }
 
   editBook(book: Book): void {
-    console.log('Navigiere zu Ansicht:', book); // Debugging
     this.router.navigate(['/edit', book.id]);
   }
 

@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { AppState } from '../../store/app.state'; // Adjust the path as necessary
 import { ReactiveFormsModule, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { selectAllBooks } from '../../store/books/books.selectors';
-import { createBook, editBook } from '../../store/books/books.actions';
+import { createBook, editBook, deleteBook } from '../../store/books/books.actions';
 
 @Component({
   selector: 'app-book-form',
@@ -16,6 +16,7 @@ export class BookFormComponent {
   @Output() cancelClicked = new EventEmitter<void>();
   bookForm: FormGroup;
   isViewMode: boolean = false;
+  isDeleteMode: boolean = false;
 
   constructor(
     private fb: FormBuilder, 
@@ -58,9 +59,12 @@ export class BookFormComponent {
               genre: book.genre,
               price: book.price,
             });
-            if (currentPath?.startsWith('view')) {
+            if (currentPath === 'view/:bookId') {
               this.isViewMode = true;
               this.bookForm.disable(); // Form deaktivieren im Ansicht-Modus
+            }
+            if (currentPath === 'delete/:bookId'){
+              this.isDeleteMode = true;
             }
           }
         });
@@ -92,7 +96,7 @@ export class BookFormComponent {
       title: this.bookForm.value.title,
       publicationDate: this.bookForm.value.publicationDate,
       author: { 
-        id: Math.floor(Math.random() * 1000),
+        id: this.bookForm.value.authorId,
         name: this.bookForm.value.authorName,
         birthDate: new Date() // or any default date
       },
@@ -106,8 +110,16 @@ export class BookFormComponent {
     } else if (currentPath === 'edit/:bookId') {
       this.store.dispatch(editBook({ book: existBook }));
       this.router.navigate(['/']);
-
     }
+  }
+
+  confirmDelete(): void {
+    const bookId = Number(this.route.snapshot.paramMap.get('bookId'));
+    this.store.dispatch(deleteBook({ bookId }));
+    this.router.navigate(['/']); // Zurück zur Tabelle
+  }
+  cancelDelete(): void {
+    this.router.navigate(['/']);
   }
 
   onCancel(): void {

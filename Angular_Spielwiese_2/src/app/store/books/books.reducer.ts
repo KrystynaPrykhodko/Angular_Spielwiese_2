@@ -1,6 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 import { initialBooksState } from './books.state';
-import { createBook, editBook } from './books.actions';
+import { createBook, editBook, deleteBook } from './books.actions';
 
 // Debugging: Initial Books State loggen
 console.log('REDUCER:', initialBooksState);
@@ -17,4 +17,9 @@ export const booksReducer = createReducer(
       ...state,
       books: state.books.map((b) => (b.id === book.id ? { ...b, ...book } : b)),
     })),
+
+    on(deleteBook, (state, { bookId }) => ({
+      ...state,
+      books: state.books.filter((b) => b.id !== bookId),
+    }))
 );

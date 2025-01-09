@@ -13,7 +13,8 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let book of books$ | async">
+    @for (book of books$ | async; track book.id) {
+    <tr>
       <td>{{ book.title }}</td>
       <td>{{ book.author.name }}</td>
       <td>{{ book.publicationDate | date: 'mediumDate' }}</td>
@@ -25,6 +26,7 @@
         <button (click)="viewBook(book)">View</button>
       </td>
     </tr>
+  }
   </tbody>
 </table>
 
