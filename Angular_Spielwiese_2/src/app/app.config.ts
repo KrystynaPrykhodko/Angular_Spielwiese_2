@@ -7,6 +7,7 @@ import { provideStoreDevtools } from '@ngrx/store-devtools';
 
 import { BookFormComponent } from './components/book-form/book-form.component';
 import { TableComponent } from './components/table/table.component';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 
 export const appConfig: ApplicationConfig = {
@@ -21,6 +22,6 @@ export const appConfig: ApplicationConfig = {
       
     ]),
     provideStore({ books: booksReducer }), // Registriere den booksReducer
-    provideStoreDevtools(), // Fügt die Redux DevTools hinzu  // für DEBUGGING
+    provideStoreDevtools(), provideAnimationsAsync(), // Fügt die Redux DevTools hinzu  // für DEBUGGING
   ],
 };
