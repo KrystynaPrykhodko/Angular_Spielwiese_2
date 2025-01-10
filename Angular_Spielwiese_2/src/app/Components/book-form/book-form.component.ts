@@ -5,6 +5,7 @@ import { AppState } from '../../store/app.state'; // Adjust the path as necessar
 import { ReactiveFormsModule, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { selectAllBooks } from '../../store/books/books.selectors';
 import { createBook, editBook, deleteBook } from '../../store/books/books.actions';
+import { Book } from '../../models/book.model'; // Adjust the path as necessary
 
 @Component({
   selector: 'app-book-form',
@@ -14,9 +15,12 @@ import { createBook, editBook, deleteBook } from '../../store/books/books.action
 })
 export class BookFormComponent {
   @Output() cancelClicked = new EventEmitter<void>();
+  
   bookForm: FormGroup;
   isViewMode: boolean = false;
   isDeleteMode: boolean = false;
+  mode: 'CREATE' | 'EDIT' | 'VIEW' | 'DELETE' | null = null;
+  bookId?: number;
 
   constructor(
     private fb: FormBuilder, 
@@ -24,7 +28,19 @@ export class BookFormComponent {
     private store: Store<AppState>,
     private router: Router
   ) {
-    this.bookForm = this.fb.group({
+    this.bookForm = this.initializeForm();
+  }
+
+  ngOnInit(): void {
+    this.setupMode();
+    if (this.bookId) {
+      this.loadBookData();
+    }
+  }
+
+  // Initialisiert das Formular
+  private initializeForm(): FormGroup {
+    return this.fb.group({
       title: ['', Validators.required],
       publicationDate: [null, Validators.required],
       authorName: ['', Validators.required],
@@ -33,97 +49,85 @@ export class BookFormComponent {
     });
   }
 
-  ngOnInit(): void {
-    this.route.paramMap.subscribe((params) => {
-      const bookId = params.get('bookId');
-      const currentPath = this.route.snapshot.routeConfig?.path;
+  // Setzt den Modus und lädt die Buch-ID, falls vorhanden
+  private setupMode(): void {
+    const path = this.route.snapshot.routeConfig?.path;
+    this.bookId = Number(this.route.snapshot.paramMap.get('bookId'));
 
-      if (currentPath === 'create') {
-        // CREATE: Initialisiere leeres Buch
-        this.bookForm.reset({
-          title: 'Neues Buch',
-          publicationDate: null,
-          authorName: 'Max Mustermann',
-          genre: '',
-          price: 0,
-        });
-      } else if (bookId) {
-        // VIEW oder EDIT: Buch laden
-        this.store.select(selectAllBooks).subscribe((books) => {
-          const book = books.find((b) => b.id === Number(bookId));
-          if (book) {
-            this.bookForm.patchValue({
-              title: book.title,
-              publicationDate: book.publicationDate,
-              authorName: book.author.name,
-              genre: book.genre,
-              price: book.price,
-            });
-            if (currentPath === 'view/:bookId') {
-              this.isViewMode = true;
-              this.bookForm.disable(); // Form deaktivieren im Ansicht-Modus
-            }
-            if (currentPath === 'delete/:bookId'){
-              this.isDeleteMode = true;
-            }
-          }
+    if (path === 'create') {
+      this.mode = 'CREATE';
+    } else if (path === 'edit/:bookId') {
+      this.mode = 'EDIT';
+    } else if (path === 'view/:bookId') { 
+      this.mode = 'VIEW';
+      this.isViewMode = true;
+      this.bookForm.disable(); // Form deaktivieren im Ansicht-Modus
+    } else if (path === 'delete/:bookId') {
+      this.mode = 'DELETE';
+    }
+  }
+
+  // Lädt Buchdaten aus dem Store
+  private loadBookData(): void {
+    this.store.select(selectAllBooks).subscribe((books) => {
+      const book = books.find((b) => b.id === this.bookId);
+      if (book) {
+        this.bookForm.patchValue({
+          title: book.title,
+          publicationDate: book.publicationDate,
+          authorName: book.author.name,
+          genre: book.genre,
+          price: book.price,
         });
       }
     });
   }
 
+  // Handhabt das Speichern von Daten basierend auf dem Modus
   onSubmit(): void {
-    if (this.isViewMode) return; // Keine Aktionen im Ansicht-Modus
-    console.log('Formular abgeschickt:', this.bookForm.value);
+    const book = this.getBookFromForm();
 
-    const currentPath = this.route.snapshot.routeConfig?.path;
+    if (this.mode === 'CREATE') {
+      this.store.dispatch(createBook({ book }));
+    } else if (this.mode === 'EDIT') {
+      this.store.dispatch(editBook({ book }));
+    }
 
-    const newBook = {
-      id: Math.floor(Math.random() * 1000),
-      title: this.bookForm.value.title,
-      publicationDate: this.bookForm.value.publicationDate,
-      author: { 
-        id: Math.floor(Math.random() * 1000),
-        name: this.bookForm.value.authorName,
-        birthDate: new Date() // or any default date
-      },
-      genre: this.bookForm.value.genre,
-      price: this.bookForm.value.price,
-    };
+    this.navigateToTable();
+  }
 
-    const existBook = {
-      id: Number(this.route.snapshot.paramMap.get('bookId')),
-      title: this.bookForm.value.title,
-      publicationDate: this.bookForm.value.publicationDate,
-      author: { 
-        id: this.bookForm.value.authorId,
-        name: this.bookForm.value.authorName,
-        birthDate: new Date() // or any default date
-      },
-      genre: this.bookForm.value.genre,
-      price: this.bookForm.value.price,
-    };
-
-    if (currentPath === 'create') {
-      this.store.dispatch(createBook({ book: newBook }));
-      this.router.navigate(['/']);
-    } else if (currentPath === 'edit/:bookId') {
-      this.store.dispatch(editBook({ book: existBook }));
-      this.router.navigate(['/']);
+  // Löscht das Buch im DELETE-Modus
+  confirmDelete(): void {
+    if (this.mode === 'DELETE' && this.bookId) {  
+      this.store.dispatch(deleteBook({ bookId: this.bookId }));
+      this.navigateToTable();
     }
   }
+  
+  // Extrahiert BUchdaten aus dem Formular
+  private getBookFromForm(): Book {
+    return {  
+      id: this.mode === 'CREATE' ? Math.floor(Math.random() * 1000) : this.bookId!,
+      title: this.bookForm.value.title,
+      publicationDate: this.bookForm.value.publicationDate, 
+      author: {
+        id: Math.floor(Math.random() * 1000),
+        name: this.bookForm.value.authorName,
+        birthDate: new Date(),
+      },
+      genre: this.bookForm.value.genre,
+      price: this.bookForm.value.price,
+      }
+    
+  }; 
 
-  confirmDelete(): void {
-    const bookId = Number(this.route.snapshot.paramMap.get('bookId'));
-    this.store.dispatch(deleteBook({ bookId }));
-    this.router.navigate(['/']); // Zurück zur Tabelle
-  }
-  cancelDelete(): void {
+  // Navigiert zurück zur Tabelle
+  private navigateToTable(): void {
     this.router.navigate(['/']);
   }
-
-  onCancel(): void {
-    this.cancelClicked.emit();
-    this.router.navigate(['/']);
-  }
+  
+  // Bricht die aktuelle Aktion ab
+  onCancel(): void { 
+    this.navigateToTable();
+  } 
 }
