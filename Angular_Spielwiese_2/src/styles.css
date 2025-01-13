@@ -2,3 +2,21 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.mat-form-field {
+    background: white; /* Setzt den Hintergrund auf weiß */
+    padding: 8px;      /* Optional: Polsterung hinzufügen */
+    border-radius: 4px; /* Optional: Abgerundete Ecken */
+  }
+  .mat-form-field-appearance-fill .mat-form-field-flex {
+    background-color: white; /* Weißer Hintergrund für das Eingabefeld */
+  }
+  
+  .mat-datepicker-content {
+    background: white !important; /* Weißer Hintergrund für den Datepicker */
+  }
+
+  button[disabled] {
+    opacity: 0.5; /* Button ausgegraut */
+    cursor: not-allowed; /* Zeigt, dass der Button deaktiviert ist */
+  }

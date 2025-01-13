@@ -7,11 +7,35 @@ import { selectAllBooks } from '../../store/books/books.selectors';
 import { createBook, editBook, deleteBook } from '../../store/books/books.actions';
 import { Book } from '../../models/book.model'; // Adjust the path as necessary
 
+import { MatTableModule } from '@angular/material/table';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
+
+
+
 @Component({
   selector: 'app-book-form',
-  imports: [ReactiveFormsModule],
+  imports: [
+    ReactiveFormsModule,
+    MatTableModule,
+    MatInputModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatDialogModule,
+    MatIconModule,
+    ReactiveFormsModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+  ],
+  providers: [{ provide: MAT_DATE_LOCALE, useValue: 'de-DE' }],
   templateUrl: './book-form.component.html',
-  styleUrl: './book-form.component.css'
+  styleUrls: ['./book-form.component.css'],
 })
 export class BookFormComponent {
   @Output() cancelClicked = new EventEmitter<void>();
@@ -89,11 +113,13 @@ export class BookFormComponent {
 
     if (this.mode === 'CREATE') {
       this.store.dispatch(createBook({ book }));
+      this.navigateToTable();
     } else if (this.mode === 'EDIT') {
       this.store.dispatch(editBook({ book }));
-    }
-
-    this.navigateToTable();
+      this.navigateToTable();
+    } else if (this.mode === 'DELETE') {
+      this.isDeleteMode = true;
+    } 
   }
 
   // Löscht das Buch im DELETE-Modus

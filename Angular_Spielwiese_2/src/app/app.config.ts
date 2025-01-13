@@ -22,6 +22,6 @@ export const appConfig: ApplicationConfig = {
       
     ]),
     provideStore({ books: booksReducer }), // Registriere den booksReducer
-    provideStoreDevtools(), provideAnimationsAsync(), // Fügt die Redux DevTools hinzu  // für DEBUGGING
+    provideStoreDevtools(), provideAnimationsAsync(), provideAnimationsAsync(), // Fügt die Redux DevTools hinzu  // für DEBUGGING
   ],
 };
