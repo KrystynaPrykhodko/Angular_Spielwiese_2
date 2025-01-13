@@ -5,7 +5,9 @@ import { Book } from '../../models/book.model';
 import { AppState } from '../../store/app.state';
 import { selectAllBooks } from '../../store/books/books.selectors';
 import { DatePipe, CommonModule } from '@angular/common';
-import { deleteBook } from '../../store/books/books.actions';
+import { MatTableModule } from '@angular/material/table';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 
 import { Router } from '@angular/router'; 
 
@@ -13,13 +15,18 @@ import { Router } from '@angular/router';
   selector: 'app-table',
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.css'],
-  imports: [DatePipe, CommonModule],
+  imports: [
+    DatePipe, 
+    CommonModule, 
+    MatTableModule, 
+    MatButtonModule, 
+    MatIconModule],
 })
 export class TableComponent implements OnInit {                    
   books$: Observable<Book[]>;
 
   constructor(private store: Store<AppState>, private router: Router) {
-    this.books$ = this.store.select(selectAllBooks);
+  this.books$ = this.store.select(selectAllBooks);
   }
 
   ngOnInit(): void {

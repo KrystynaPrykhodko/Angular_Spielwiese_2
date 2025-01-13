@@ -1,33 +1,57 @@
-<a (click)="createBook()">
-  <button>Create</button>
-</a>
-<table border="1" style="width: 100%; border-collapse: collapse;">
-  <thead>
-    <tr>
-      <th>Title 1</th>
-      <th>Author</th>
-      <th>Publication Date</th>
-      <th>Genre</th>
-      <th>Price</th>
-      <th>Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    @for (book of books$ | async; track book.id) {
-    <tr>
-      <td>{{ book.title }}</td>
-      <td>{{ book.author.name }}</td>
-      <td>{{ book.publicationDate | date: 'mediumDate' }}</td>
-      <td>{{ book.genre || 'N/A' }}</td>
-      <td>{{ book.price | currency }}</td>
-      <td>
-        <button (click)="editBook(book)">Edit</button>
-        <button (click)="deleteBook(book)">Delete</button>
-        <button (click)="viewBook(book)">View</button>
-      </td>
-    </tr>
-  }
-  </tbody>
+<div style="margin: 16px;">
+  <button mat-raised-button color="primary" (click)="createBook()">Create</button>
+</div>
+
+<table mat-table [dataSource]="books$" class="mat-elevation-z8">
+
+  <!-- Title Column -->
+  <ng-container matColumnDef="title">
+    <th mat-header-cell *matHeaderCellDef> Title </th>
+    <td mat-cell *matCellDef="let book"> {{ book.title }} </td>
+  </ng-container>
+
+  <!-- Author Column -->
+  <ng-container matColumnDef="author">
+    <th mat-header-cell *matHeaderCellDef> Author </th>
+    <td mat-cell *matCellDef="let book"> {{ book.author.name }} </td>
+  </ng-container>
+
+  <!-- Publication Date Column -->
+  <ng-container matColumnDef="publicationDate">
+    <th mat-header-cell *matHeaderCellDef> Publication Date </th>
+    <td mat-cell *matCellDef="let book"> {{ book.publicationDate | date: 'mediumDate' }} </td>
+  </ng-container>
+
+  <!-- Genre Column -->
+  <ng-container matColumnDef="genre">
+    <th mat-header-cell *matHeaderCellDef> Genre </th>
+    <td mat-cell *matCellDef="let book"> {{ book.genre || 'N/A' }} </td>
+  </ng-container>
+
+  <!-- Price Column -->
+  <ng-container matColumnDef="price">
+    <th mat-header-cell *matHeaderCellDef> Price </th>
+    <td mat-cell *matCellDef="let book"> {{ book.price | currency }} </td>
+  </ng-container>
+
+  <!-- Actions Column -->
+  <ng-container matColumnDef="actions">
+    <th mat-header-cell *matHeaderCellDef> Actions </th>
+    <td mat-cell *matCellDef="let book">
+      <button mat-icon-button color="primary" (click)="editBook(book)">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button mat-icon-button color="warn" (click)="deleteBook(book)">
+        <mat-icon>delete</mat-icon>
+      </button>
+      <button mat-icon-button (click)="viewBook(book)">
+        <mat-icon>visibility</mat-icon>
+      </button>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="['title', 'author', 'publicationDate', 'genre', 'price', 'actions']"></tr>
+  <tr mat-row *matRowDef="let row; columns: ['title', 'author', 'publicationDate', 'genre', 'price', 'actions'];"></tr>
 </table>
 
 
