@@ -4,19 +4,18 @@ html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .mat-form-field {
-    background: white; /* Setzt den Hintergrund auf weiß */
-    padding: 8px;      /* Optional: Polsterung hinzufügen */
-    border-radius: 4px; /* Optional: Abgerundete Ecken */
+    background: white;
+    padding: 8px;
+    border-radius: 4px;
   }
   .mat-form-field-appearance-fill .mat-form-field-flex {
-    background-color: white; /* Weißer Hintergrund für das Eingabefeld */
-  }
+    background-color: white;  }
   
   .mat-datepicker-content {
-    background: white !important; /* Weißer Hintergrund für den Datepicker */
+    background: white !important;
   }
 
   button[disabled] {
-    opacity: 0.5; /* Button ausgegraut */
-    cursor: not-allowed; /* Zeigt, dass der Button deaktiviert ist */
+    opacity: 0.5;
+    cursor: not-allowed;
   }

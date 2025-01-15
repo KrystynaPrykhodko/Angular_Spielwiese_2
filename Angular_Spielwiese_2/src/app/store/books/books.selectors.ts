@@ -9,3 +9,8 @@ export const selectAllBooks = createSelector(
   selectBooksState,
   (state) => state.books
 );
+
+export  const selectAllAuthors = createSelector(
+  selectBooksState,
+  (state) => state.books.map((book) => book.author)
+);

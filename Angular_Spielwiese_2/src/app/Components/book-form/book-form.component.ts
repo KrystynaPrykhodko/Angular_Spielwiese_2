@@ -1,9 +1,10 @@
 import { Component, Output, EventEmitter } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../store/app.state'; // Adjust the path as necessary
-import { ReactiveFormsModule, FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { selectAllBooks } from '../../store/books/books.selectors';
+import { FormsModule, ReactiveFormsModule, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { selectAllBooks, selectAllAuthors } from '../../store/books/books.selectors';
 import { createBook, editBook, deleteBook } from '../../store/books/books.actions';
 import { Book } from '../../models/book.model'; // Adjust the path as necessary
 
@@ -15,13 +16,15 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-import { MAT_DATE_LOCALE } from '@angular/material/core';
-
+import { MatOptionModule, MAT_DATE_LOCALE } from '@angular/material/core';
+import {MatSelectModule} from '@angular/material/select';
 
 
 @Component({
   selector: 'app-book-form',
   imports: [
+    CommonModule,
+    FormsModule,
     ReactiveFormsModule,
     MatTableModule,
     MatInputModule,
@@ -31,7 +34,9 @@ import { MAT_DATE_LOCALE } from '@angular/material/core';
     MatIconModule,
     ReactiveFormsModule,
     MatDatepickerModule,
+    MatOptionModule,
     MatNativeDateModule,
+    MatSelectModule
   ],
   providers: [{ provide: MAT_DATE_LOCALE, useValue: 'de-DE' }],
   templateUrl: './book-form.component.html',
@@ -46,6 +51,8 @@ export class BookFormComponent {
   mode: 'CREATE' | 'EDIT' | 'VIEW' | 'DELETE' | null = null;
   bookId?: number;
 
+  authors: { id: number; name: string; birthDate: Date }[] = [];
+
   constructor(
     private fb: FormBuilder, 
     private route: ActivatedRoute,
@@ -57,6 +64,7 @@ export class BookFormComponent {
 
   ngOnInit(): void {
     this.setupMode();
+    this.loadAuthors();
     if (this.bookId) {
       this.loadBookData();
     }
@@ -89,6 +97,12 @@ export class BookFormComponent {
     } else if (path === 'delete/:bookId') {
       this.mode = 'DELETE';
     }
+  }
+
+  private loadAuthors(): void {
+    this.store.select(selectAllAuthors).subscribe((authors) => {
+      this.authors = authors;
+    });
   }
 
   // Lädt Buchdaten aus dem Store
