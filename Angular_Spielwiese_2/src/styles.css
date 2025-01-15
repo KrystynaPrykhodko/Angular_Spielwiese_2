@@ -4,18 +4,19 @@ html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .mat-form-field {
-    background: white;
-    padding: 8px;
-    border-radius: 4px;
-  }
-  .mat-form-field-appearance-fill .mat-form-field-flex {
-    background-color: white;  }
+  background: white;
+  padding: 8px;
+  border-radius: 4px;
+}
+.mat-form-field-appearance-fill .mat-form-field-flex {
+  background-color: white;  
+}
   
-  .mat-datepicker-content {
-    background: white !important;
-  }
+.mat-datepicker-content {
+  background: white !important;
+}
 
-  button[disabled] {
-    opacity: 0.5;
-    cursor: not-allowed;
-  }
+button[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
