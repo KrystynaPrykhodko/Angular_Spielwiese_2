@@ -5,9 +5,10 @@ import { provideStore } from '@ngrx/store';
 import { booksReducer } from './store/books/books.reducer';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 
-import { BookFormComponent } from './components/book-form/book-form.component';
-import { TableComponent } from './components/table/table.component';
+import { BookFormComponent } from './Components/book-form/book-form.component';
+import { TableComponent } from './Components/table/table.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { ArchiveComponent } from './Components/archive/archive.component';
 
 
 export const appConfig: ApplicationConfig = {
@@ -19,6 +20,7 @@ export const appConfig: ApplicationConfig = {
       { path: 'edit/:bookId', component: BookFormComponent },
       { path: 'view/:bookId', component: BookFormComponent },
       { path: 'delete/:bookId', component: BookFormComponent },
+      { path: 'archive', component: ArchiveComponent },
       
     ]),
     provideStore({ books: booksReducer }), // Registriere den booksReducer
