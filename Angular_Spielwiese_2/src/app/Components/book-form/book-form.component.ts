@@ -163,7 +163,7 @@ export class BookFormComponent {
 
   // Navigiert zurück zur Tabelle
   private navigateToTable(): void {
-    this.router.navigate(['/']);
+    this.router.navigate(['/books']);
   }
   
   // Bricht die aktuelle Aktion ab

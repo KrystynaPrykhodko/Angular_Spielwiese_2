@@ -9,21 +9,31 @@ import { BookFormComponent } from './Components/book-form/book-form.component';
 import { TableComponent } from './Components/table/table.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { ArchiveComponent } from './Components/archive/archive.component';
+import { HomepageComponent } from './Components/homepage/homepage.component';
+import { AuthorsComponent } from './Components/authors/authors.component';
+import { CommentsComponent } from './Components/comments/comments.component';
+import { ImpressumComponent } from './Components/impressum/impressum.component';
 
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideHttpClient(),
     provideRouter([
-      { path: '', component: TableComponent },
+      { path: '', component: HomepageComponent },
       { path: 'create', component: BookFormComponent },
       { path: 'edit/:bookId', component: BookFormComponent },
       { path: 'view/:bookId', component: BookFormComponent },
       { path: 'delete/:bookId', component: BookFormComponent },
       { path: 'archive', component: ArchiveComponent },
+      { path: 'homepage', component: HomepageComponent },
+      { path: 'books', component: TableComponent },
+      { path: 'authors', component: AuthorsComponent},
+      { path: 'comments', component: CommentsComponent },
+      { path: 'impressum', component: ImpressumComponent },
+      { path: '**', redirectTo: 'homepage' },
       
     ]),
     provideStore({ books: booksReducer }), // Registriere den booksReducer
-    provideStoreDevtools(), provideAnimationsAsync(), provideAnimationsAsync(), // Fügt die Redux DevTools hinzu  // für DEBUGGING
+    provideStoreDevtools(), provideAnimationsAsync(), // Fügt die Redux DevTools hinzu  // für DEBUGGING
   ],
 };
