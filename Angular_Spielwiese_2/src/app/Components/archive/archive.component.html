@@ -2,5 +2,6 @@
     <h1>Archived Books</h1>
     <p>Here is the list of all books about Harry Potter that we have in our archive.</p>
 
-    https://openlibrary.org/search.json?q=Harry%20Potter
+    <div *ngFor="let book of booksList">
+        {{ book }}
 </div>
