@@ -9,6 +9,7 @@ import { OpenAPIService } from '../../services/openAPI.service';
   styleUrls: ['./authors.component.css']
 })
 export class AuthorsComponent implements OnInit {
+  // alles zur API
   authorsList: string[] = [];
 
   constructor(private openAPIService: OpenAPIService) {}

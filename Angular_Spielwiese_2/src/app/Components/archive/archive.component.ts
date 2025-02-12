@@ -1,14 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { OpenAPIService } from '../../services/openAPI.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-archive',
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './archive.component.html',
   styleUrl: './archive.component.css'
 })
 export class ArchiveComponent implements OnInit {
+  favoriteBook: string = '';
   booksList: string[] = [];
   
   constructor(private openAPIService: OpenAPIService) {}
