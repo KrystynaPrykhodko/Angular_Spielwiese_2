@@ -20,7 +20,8 @@ const config: Config = {
     }
   },
   transformIgnorePatterns: ['node_modules/(?!.*\\.mjs$)'],
-  modulePaths: []
+  modulePaths: [],
+  moduleFileExtensions: ['ts', 'js', 'mjs', 'json', 'node']
 };
 
 export default config;
