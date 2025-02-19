@@ -1,5 +1,3 @@
-/* To learn more about Typescript configuration file: https://www.typescriptlang.org/docs/handbook/tsconfig-json.html. */
-/* To learn more about Angular compiler options: https://angular.dev/reference/configs/angular-compiler-options. */
 {
   "compileOnSave": false,
   "compilerOptions": {
@@ -13,15 +11,18 @@
     "isolatedModules": true,
     "esModuleInterop": true,
     "experimentalDecorators": true,
-    "moduleResolution": "bundler",
+    "moduleResolution": "NodeNext",
     "importHelpers": true,
     "target": "ES2022",
-    "module": "ES2022"
+    "module": "NodeNext",
+    "types": ["jest"],  // Damit TypeScript Jest erkennt
+    "allowJs": true     // Falls Jest JavaScript-Dateien verarbeiten muss
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
     "strictTemplates": true
-  }
+  },
+  "include": ["src/**/*.test.ts", "src/**/*.ts"]
 }
