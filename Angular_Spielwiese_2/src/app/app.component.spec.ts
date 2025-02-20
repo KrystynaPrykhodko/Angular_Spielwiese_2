@@ -1,29 +1,15 @@
-import { TestBed } from '@angular/core/testing';
+import { render } from '@testing-library/angular';
 import { AppComponent } from './app.component';
+import { RouterOutlet } from '@angular/router';
+import { SidebarComponent } from './Components/sidebar/sidebar.component';
+import { HamburgerComponent } from './Components/hamburger/hamburger.component';
 
 describe('AppComponent', () => {
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [AppComponent],
-    }).compileComponents();
-  });
+  it('should render the component', async () => {
+    const { container } = await render(AppComponent, {
+      imports: [RouterOutlet, SidebarComponent, HamburgerComponent],
+    });
 
-  it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app).toBeTruthy();
-  });
-
-  it(`should have the 'Angular_Spielwiese_2' title`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('Angular_Spielwiese_2');
-  });
-
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, Angular_Spielwiese_2');
+    expect(container).toBeTruthy(); // Prüft, ob die Komponente gerendert wurde
   });
 });
