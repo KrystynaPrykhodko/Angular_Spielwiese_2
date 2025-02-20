@@ -1,6 +1,7 @@
 
 import { TestBed } from '@angular/core/testing';
 import { SidebarComponent } from './sidebar.component';
+import { By } from '@angular/platform-browser';
 
 describe('SidebarComponent', () => {
     beforeEach(() => {
@@ -15,13 +16,25 @@ describe('SidebarComponent', () => {
         expect(fixture.componentInstance).toBeTruthy();
     });
 
-    it('shoud not have "open" when isOpen is false', () => {
+    // Tests, ob die Inhalte auf Sidebar angezeigt werden -> Material steuert das Verhalten SELBST über die KLasse `mat-drawer-opened`
+
+    it('should NOT display the sidebar when isOpen is true', () => {
         const fixture = TestBed.createComponent(SidebarComponent);
-        fixture.componentInstance.isOpen = false; // setzt Open explizit auf false
-        fixture.detectChanges(); // aktualisiert JSDOM
+        fixture.componentInstance.isOpen = true; // Da `opened="!isOpen"` → Sidebar sollte geschlossen sein
+        fixture.detectChanges();
 
-        const sidebarElement = fixture.nativeElement.querySelector('.sidebar');
-        expect(sidebarElement.classList).not.toContain('open'); // sollte die "open"-Klasse NICHT enthalten
-
+        const sidenavElement = fixture.debugElement.query(By.css('mat-sidenav'));
+        expect(sidenavElement).toBeTruthy(); // Stellt sicher, dass das Element existiert
+        expect(sidenavElement.nativeElement.classList).not.toContain('mat-drawer-opened'); // Sollte geschlossen sein 
     });
+
+    it('should display the sidebar when isOpen is false', () => {
+        const fixture = TestBed.createComponent(SidebarComponent);
+        fixture.componentInstance.isOpen = false; // Da `opened="!isOpen"` → Sidebar sollte offen sein
+        fixture.detectChanges();
+    
+        const sidenavElement = fixture.debugElement.query(By.css('mat-sidenav'));
+        expect(sidenavElement).toBeTruthy(); // Element existiert
+        expect(sidenavElement.nativeElement.classList).toContain('mat-drawer-opened'); // Sollte offen sein
+    });    
 });
