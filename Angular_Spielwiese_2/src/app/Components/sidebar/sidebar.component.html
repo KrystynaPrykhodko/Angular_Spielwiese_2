@@ -1,14 +1,14 @@
-<div class="sidebar" [class.open]="isOpen">
-    <nav>
+<mat-sidenav-container class="sidebar-container">
+    <mat-sidenav [opened]="!isOpen">
+      <nav>
         <ul>
           <li><a href="/homepage">HOMEPAGE</a></li>
           <li><a href="/books">BÜCHER</a></li>
           <li><a href="/authors">AUTHORS</a></li>
-          <li><a href="/archive">ARHIV</a></li>
+          <li><a href="/archive">ARCHIV</a></li>
           <li><a href="/comments">KOMMENTAR</a></li>
           <li><a href="/impressum">IMPRESSUM</a></li>
         </ul>
-    </nav>
-</div>
-
-
+      </nav>
+    </mat-sidenav>
+</mat-sidenav-container>

@@ -1,19 +1,20 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { MatSidenavModule } from '@angular/material/sidenav';
 import { SidebarComponent } from './Components/sidebar/sidebar.component';
 import { HamburgerComponent } from "./Components/hamburger/hamburger.component";
-
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, SidebarComponent, HamburgerComponent],
+  standalone: true,
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrls: ['./app.component.css'],
+  imports: [MatSidenavModule, SidebarComponent, HamburgerComponent, RouterOutlet],
 })
 export class AppComponent {
   isSidebarOpen = false;
 
-  toggleSidebar() : void {
+  toggleSidebar(): void {
     this.isSidebarOpen = !this.isSidebarOpen;
   }
-} 
+}
