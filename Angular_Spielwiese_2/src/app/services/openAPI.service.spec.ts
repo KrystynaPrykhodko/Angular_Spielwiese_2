@@ -11,8 +11,8 @@ describe('OpenAPIService', () => {
     TestBed.configureTestingModule({
       providers: [
         OpenAPIService,
-        provideHttpClient(), // 💡 Stellt sicher, dass HttpClient in den Tests verfügbar ist
-        provideHttpClientTesting() // 💡 Ersetzt das veraltete HttpClientTestingModule
+        provideHttpClient(), // Stellt sicher, dass HttpClient in den Tests verfügbar ist
+        provideHttpClientTesting() // Ersetzt das veraltete HttpClientTestingModule
       ],
     });
 
