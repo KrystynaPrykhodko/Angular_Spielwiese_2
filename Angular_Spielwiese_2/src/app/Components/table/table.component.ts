@@ -8,19 +8,21 @@ import { DatePipe, CommonModule } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-
-import { Router } from '@angular/router'; 
+import { Router } from '@angular/router';
+import { ButtonComponent } from "../../button/button.component"; 
 
 @Component({
   selector: 'app-table',
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.css'],
   imports: [
-    DatePipe, 
-    CommonModule, 
-    MatTableModule, 
-    MatButtonModule, 
-    MatIconModule],
+    DatePipe,
+    CommonModule,
+    MatTableModule,
+    MatButtonModule,
+    MatIconModule,
+    ButtonComponent
+],
 })
 export class TableComponent implements OnInit {                    
   books$: Observable<Book[]>;
@@ -46,10 +48,6 @@ export class TableComponent implements OnInit {
 
   viewBook(book: Book): void {
     this.router.navigate(['/view', book.id]);
-  }
-
-  createBook(): void {  
-    this.router.navigate(['/create']);
   }
 
 }
