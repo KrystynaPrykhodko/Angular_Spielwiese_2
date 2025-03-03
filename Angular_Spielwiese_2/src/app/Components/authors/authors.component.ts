@@ -33,6 +33,6 @@ export class AuthorsComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
-}
+  }
 }
 

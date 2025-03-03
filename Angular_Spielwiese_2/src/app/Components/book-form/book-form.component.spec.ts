@@ -59,6 +59,13 @@ describe('BookFormComponent', () => {
         }).compileComponents();
     });
 
+    afterEach(() => {
+        if (fixture) {
+            fixture.destroy();
+        }
+        TestBed.resetTestingModule();
+    });
+
     it('should render the component', () => {
         fixture = TestBed.createComponent(BookFormComponent);
         component = fixture.componentInstance;
