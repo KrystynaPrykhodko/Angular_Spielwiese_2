@@ -10,6 +10,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
 import { ButtonComponent } from "../../button/button.component"; 
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-table',
@@ -26,6 +27,7 @@ import { ButtonComponent } from "../../button/button.component";
 })
 export class TableComponent implements OnInit {                    
   books$: Observable<Book[]>;
+  private subscription: Subscription = new Subscription();
 
   constructor(private store: Store<AppState>, private router: Router) {
   this.books$ = this.store.select(selectAllBooks);
@@ -33,9 +35,13 @@ export class TableComponent implements OnInit {
 
   ngOnInit(): void {
     // Kein explizites Laden nötig, da die Mock-Daten bereits im State sind
-    this.books$.subscribe((books) => {
+    this.subscription = this.books$.subscribe((books) => {
       //console.log('Books aus Store:', books); // Überprüfen, ob die Bücher geladen werden
     });
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
   editBook(book: Book): void {

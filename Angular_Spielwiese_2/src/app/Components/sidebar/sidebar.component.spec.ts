@@ -4,10 +4,19 @@ import { SidebarComponent } from './sidebar.component';
 import { By } from '@angular/platform-browser';
 
 describe('SidebarComponent', () => {
+    let fixture: any;
+    
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [SidebarComponent],
         }).compileComponents();
+    });
+
+    afterEach(() => {
+        if (fixture) {
+            fixture.destroy();
+        }
+        TestBed.resetTestingModule();
     });
     
     it('should render the component', () => {
