@@ -5,6 +5,8 @@ import { provideRouter } from "@angular/router";
 import { provideStore } from "@ngrx/store";
 import { booksReducer } from "./store/books/books.reducer";
 import { provideNoopAnimations } from "@angular/platform-browser/animations";
+import { provideHttpClient } from "@angular/common/http";
+import { OpenAPIService } from "./services/openAPI.service";
 
 import { HomepageComponent } from "./Components/homepage/homepage.component";
 import { BookFormComponent } from "./Components/book-form/book-form.component";
@@ -13,8 +15,6 @@ import { AuthorsComponent } from "./Components/authors/authors.component";
 import { CommentsComponent } from "./Components/comments/comments.component";
 import { ImpressumComponent } from "./Components/impressum/impressum.component";
 import { ArchiveComponent } from "./Components/archive/archive.component";
-import { provideHttpClient } from "@angular/common/http";
-import { OpenAPIService } from "./services/openAPI.service";
 
 
 describe('Routing Tests', () => {
@@ -112,12 +112,12 @@ describe('Routing Tests', () => {
         expect(formElement).toBeTruthy();
     });
 
-    it('should navigate to "archive" and load ArhiveComponent', async () => {	    
-        await router.navigateByUrl('/arhive');
+    it('should navigate to "archive" and load ArchiveComponent', async () => {	    
+        await router.navigateByUrl('/archive');
         fixture = TestBed.createComponent(ArchiveComponent);
         fixture.detectChanges();
         
-        const formElement = fixture.nativeElement.querySelector('#arhiveTemplate');
+        const formElement = fixture.nativeElement.querySelector('#archiveTemplate');
         expect(formElement).toBeTruthy();
     });
 

@@ -3,7 +3,7 @@ import { initialBooksState } from './books.state';
 import { createBook, editBook, deleteBook } from './books.actions';
 
 // Debugging: Initial Books State loggen
-console.log('REDUCER:', initialBooksState);
+//console.log('REDUCER:', initialBooksState);
 
 // Reducer ohne spezifische Aktionen
 export const booksReducer = createReducer(

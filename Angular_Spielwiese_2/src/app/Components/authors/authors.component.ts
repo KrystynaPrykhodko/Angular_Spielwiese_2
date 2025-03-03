@@ -25,7 +25,7 @@ export class AuthorsComponent implements OnInit {
       });
       // Autors dupplikate entfernen und sortieren
       this.authorsList = Array.from(new Set(this.authorsList)).sort();
-      console.log(this.authorsList);
+      //console.log(this.authorsList);
     });
   }
 }

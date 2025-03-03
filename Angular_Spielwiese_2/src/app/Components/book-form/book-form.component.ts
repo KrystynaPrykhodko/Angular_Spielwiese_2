@@ -1,12 +1,13 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { AppState } from '../../store/app.state'; // Adjust the path as necessary
+import { AppState } from '../../store/app.state';
 import { FormsModule, ReactiveFormsModule, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { selectAllBooks, selectAllAuthors } from '../../store/books/books.selectors';
 import { createBook, editBook, deleteBook } from '../../store/books/books.actions';
-import { Book } from '../../models/book.model'; // Adjust the path as necessary
+import { Book } from '../../models/book.model';
 
 import { MatTableModule } from '@angular/material/table';
 import { MatInputModule } from '@angular/material/input';
@@ -42,8 +43,10 @@ import { MatSelectModule } from '@angular/material/select';
   templateUrl: './book-form.component.html',
   styleUrls: ['./book-form.component.css'],
 })
-export class BookFormComponent {
+export class BookFormComponent implements OnDestroy {
+  
   @Output() cancelClicked = new EventEmitter<void>();
+  private subscriptions: Subscription = new Subscription();
   
   bookForm: FormGroup;
   isViewMode: boolean = false;
@@ -68,6 +71,10 @@ export class BookFormComponent {
     if (this.bookId) {
       this.loadBookData();
     }
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 
   // Initialisiert das Formular
@@ -100,14 +107,15 @@ export class BookFormComponent {
   }
 
   private loadAuthors(): void {
-    this.store.select(selectAllAuthors).subscribe((authors) => {
+    const authorsSub = this.store.select(selectAllAuthors).subscribe((authors) => {
       this.authors = authors;
     });
+    this.subscriptions.add(authorsSub);
   }
 
   // Lädt Buchdaten aus dem Store
   private loadBookData(): void {
-    this.store.select(selectAllBooks).subscribe((books) => {
+    const booksSub= this.store.select(selectAllBooks).subscribe((books) => {
       const book = books.find((b) => b.id === this.bookId);
       if (book) {
         this.bookForm.patchValue({
@@ -119,6 +127,7 @@ export class BookFormComponent {
         });
       }
     });
+    this.subscriptions.add(booksSub);
   }
 
   // Handhabt das Speichern von Daten basierend auf dem Modus

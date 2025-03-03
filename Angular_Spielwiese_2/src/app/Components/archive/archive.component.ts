@@ -26,7 +26,7 @@ export class ArchiveComponent implements OnInit {
       });
       // Autors dupplikate entfernen und sortieren
       this.booksList = Array.from(new Set(this.booksList)).sort();
-      console.log(this.booksList);
+      //console.log(this.booksList);
     });
   } 
 }

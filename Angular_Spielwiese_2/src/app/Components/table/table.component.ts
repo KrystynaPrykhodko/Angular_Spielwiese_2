@@ -34,7 +34,7 @@ export class TableComponent implements OnInit {
   ngOnInit(): void {
     // Kein explizites Laden nötig, da die Mock-Daten bereits im State sind
     this.books$.subscribe((books) => {
-      console.log('Books aus Store:', books); // Überprüfen, ob die Bücher geladen werden
+      //console.log('Books aus Store:', books); // Überprüfen, ob die Bücher geladen werden
     });
   }
 

@@ -33,6 +33,5 @@ export const initialBooksState: BooksState = {
             price: 39.99,
           },
     ]
-};
-
-console.log('Books State Module geladen:', initialBooksState);
+}; 
+//console.log('Books State Module geladen:', initialBooksState);
