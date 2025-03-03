@@ -76,6 +76,13 @@ describe('Routing Tests', () => {
         location = TestBed.inject(Location);
     });
 
+    afterEach(() => {
+        if (fixture) {
+            fixture.destroy(); // Beendet laufende Prozesse in der Komponente
+        }
+        TestBed.resetTestingModule();
+    });
+
     it('should navigate to "" and load HomepageComponent', async () => {	    
         await router.navigateByUrl('/');
         fixture = TestBed.createComponent(HomepageComponent);

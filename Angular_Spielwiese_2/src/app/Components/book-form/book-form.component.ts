@@ -74,6 +74,7 @@ export class BookFormComponent implements OnDestroy {
   }
 
   ngOnDestroy(): void {
+    //console.log("BookFormComponent destroyed");
     this.subscriptions.unsubscribe();
   }
 
