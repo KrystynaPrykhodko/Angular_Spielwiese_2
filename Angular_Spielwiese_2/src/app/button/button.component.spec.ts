@@ -4,6 +4,7 @@ import { By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 
 describe('AppComponent', () => {
+  let fixture: any;
   let router: Router;
 
   beforeEach(() => {
@@ -12,6 +13,13 @@ describe('AppComponent', () => {
     }).compileComponents();
 
     router = TestBed.inject(Router);
+  });
+
+  afterEach(() => {
+    if (fixture) {
+        fixture.destroy();
+    }
+    TestBed.resetTestingModule();
   });
 
   it('should render the component', () => {
