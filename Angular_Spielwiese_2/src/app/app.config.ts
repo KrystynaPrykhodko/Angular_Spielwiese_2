@@ -13,6 +13,7 @@ import { HomepageComponent } from './Components/homepage/homepage.component';
 import { AuthorsComponent } from './Components/authors/authors.component';
 import { CommentsComponent } from './Components/comments/comments.component';
 import { ImpressumComponent } from './Components/impressum/impressum.component';
+import { BookPostgreSQLComponent } from './book-postgre-sql/book-postgre-sql.component';
 
 
 export const appConfig: ApplicationConfig = {
@@ -27,6 +28,7 @@ export const appConfig: ApplicationConfig = {
       { path: 'archive', component: ArchiveComponent },
       { path: 'homepage', component: HomepageComponent },
       { path: 'books', component: TableComponent },
+      { path: 'booksPostgeSQL', component: BookPostgreSQLComponent },
       { path: 'authors', component: AuthorsComponent},
       { path: 'comments', component: CommentsComponent },
       { path: 'impressum', component: ImpressumComponent },
