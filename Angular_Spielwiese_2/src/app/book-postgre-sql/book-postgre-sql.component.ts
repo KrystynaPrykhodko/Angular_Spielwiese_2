@@ -10,7 +10,7 @@ import { PostgreSQLService } from '../services/postgreSQL.service';
   styleUrl: './book-postgre-sql.component.css'
 })
 export class BookPostgreSQLComponent implements OnInit, OnDestroy {
-  booksPostgreSQLLIst: string[] = [];
+  booksPostgreSQLList: string[] = [];
   private subscription: Subscription = new Subscription();
 
   constructor(private PostgreSQLService: PostgreSQLService) {}
@@ -18,12 +18,12 @@ export class BookPostgreSQLComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     // API aufrufen
     this.subscription = this.PostgreSQLService.fetchData().subscribe((data) => {
-      // alle Bücher in authorsList speichern
-      data.docs.forEach((book: any) => {
-        if (book.title) {
-          this.booksPostgreSQLLIst.push(...book.title);
+      // alle Bücher in authorsList speichern                                                                              
+      data.forEach((book: any) => {
+        if (book.title) {    
+          this.booksPostgreSQLList.push(book.title);
         }
-        console.log(this.booksPostgreSQLLIst);
+        console.log(this.booksPostgreSQLList);
       });
     });
   }
