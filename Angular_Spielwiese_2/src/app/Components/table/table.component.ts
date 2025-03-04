@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { Book } from '../../models/book.model';
@@ -25,7 +25,7 @@ import { Subscription } from 'rxjs';
     ButtonComponent
 ],
 })
-export class TableComponent implements OnInit {                    
+export class TableComponent implements OnInit, OnDestroy {                    
   books$: Observable<Book[]>;
   private subscription: Subscription = new Subscription();
 
