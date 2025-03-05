@@ -1,3 +1,10 @@
+// PostgreSQLService - Service zur Verwaltung von Buchdaten aus einer PostgreSQL-Datenbank über eine API
+// ===============================================================================================
+// 1 Ruft Buchdaten von einer Spring Boot API (mit PostgreSQL-Datenbank) ab und speichert sie im Service.
+// 2️ Erstellt ein `BehaviorSubject`, um die Buchdaten zu speichern und allen Komponenten bereitzustellen
+// 3️ Ruft Daten direkt von der API ab und speichert sie im `BehaviorSubject`
+// 4️ Ermöglicht das erneute Laden der Daten durch `refreshData()`, um Aktualisierungen zu erhalten
+
 import { HttpClient } from "@angular/common/http"
 import { Injectable } from "@angular/core"
 import { BehaviorSubject, Observable } from "rxjs"
