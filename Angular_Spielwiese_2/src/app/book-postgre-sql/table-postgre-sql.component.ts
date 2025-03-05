@@ -4,21 +4,23 @@ import { Subscription } from 'rxjs';
 import { PostgreSQLService } from '../services/postgreSQL.service';
 
 @Component({
-  selector: 'app-book-postgre-sql',
+  selector: 'app-table-postgre-sql',
   imports: [CommonModule],
-  templateUrl: './book-postgre-sql.component.html',
-  styleUrl: './book-postgre-sql.component.css'
+  templateUrl: './table-postgre-sql.component.html',
+  styleUrl: './table-postgre-sql.component.css'
 })
-export class BookPostgreSQLComponent implements OnInit, OnDestroy {
+export class TablePostgreSQLComponent implements OnInit, OnDestroy {
   booksPostgreSQLList: string[] = [];
   private subscription: Subscription = new Subscription();
 
   constructor(private PostgreSQLService: PostgreSQLService) {}
 
   ngOnInit(): void {
-    // API aufrufen
-    this.subscription = this.PostgreSQLService.fetchData().subscribe((data) => {
-      // alle Bücher in authorsList speichern                                                                              
+    // Automatische Aktualisierung, wenn sich die Daten im Service ändern
+    
+    this.subscription = this.PostgreSQLService.booksPostgreSQL$.subscribe((data) => {   
+      this.booksPostgreSQLList = []; // Liste leeren
+                                                                               
       data.forEach((book: any) => {
         if (book.title) {    
           this.booksPostgreSQLList.push(book.title);
@@ -26,6 +28,10 @@ export class BookPostgreSQLComponent implements OnInit, OnDestroy {
         console.log(this.booksPostgreSQLList);
       });
     });
+  }
+
+  refreshData(): void {
+    this.PostgreSQLService.refreshData();
   }
 
   ngOnDestroy(): void {

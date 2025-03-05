@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BookPostgreSQLComponent } from './book-postgre-sql.component';
+import { TablePostgreSQLComponent } from './table-postgre-sql.component';
 
-describe('BookPostgreSQLComponent', () => {
-  let component: BookPostgreSQLComponent;
-  let fixture: ComponentFixture<BookPostgreSQLComponent>;
+describe('TablePostgreSQLComponent', () => {
+  let component: TablePostgreSQLComponent;
+  let fixture: ComponentFixture<TablePostgreSQLComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [BookPostgreSQLComponent]
+      imports: [TablePostgreSQLComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(BookPostgreSQLComponent);
+    fixture = TestBed.createComponent(TablePostgreSQLComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

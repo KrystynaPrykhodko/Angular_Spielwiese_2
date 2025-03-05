@@ -23,14 +23,14 @@ import { Subscription } from 'rxjs';
     MatButtonModule,
     MatIconModule,
     ButtonComponent
-],
+  ],
 })
 export class TableComponent implements OnInit, OnDestroy {                    
   books$: Observable<Book[]>;
   private subscription: Subscription = new Subscription();
 
   constructor(private store: Store<AppState>, private router: Router) {
-  this.books$ = this.store.select(selectAllBooks);
+    this.books$ = this.store.select(selectAllBooks);
   }
 
   ngOnInit(): void {
