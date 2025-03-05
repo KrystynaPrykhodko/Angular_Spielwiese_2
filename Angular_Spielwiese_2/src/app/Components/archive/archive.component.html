@@ -1,0 +1,17 @@
+<span id="archiveTemplate">
+    <div style="padding: 50px;">
+        <h1>Archived Books</h1>
+    
+        <label for="searchBook">
+            Buch suchen:
+            <input id="searchBook" type="text" [(ngModel)]="favoriteBook" />
+        </label>
+        <div>
+            <p>Dein Lieblingsbuch ist: {{ favoriteBook }}</p>
+        </div>
+
+        <p><b>Here is the list of all books about Harry Potter that we have in our archive:</b></p>
+        <div *ngFor="let book of booksList">
+            {{ book }}
+    </div>
+</div>

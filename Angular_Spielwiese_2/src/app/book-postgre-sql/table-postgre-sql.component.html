@@ -1,0 +1,12 @@
+<span id="authorsTemplate">
+    <div style="padding: 50px;">
+        <h1>Bücher PostgreSQL</h1>
+        <p>Here is the list of all books from PostgreSQL.</p>
+
+        <button (click)="refreshData()">Daten aktualisieren</button>
+    
+        <div *ngFor="let book of booksPostgreSQLList">
+            {{ book }}
+        </div>
+    </div>
+</span>

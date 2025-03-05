@@ -1,0 +1,6 @@
+.hamburger {
+    position: fixed;
+    top: 1rem;
+    left: 1rem;
+    z-index: 4000 !important;
+}
