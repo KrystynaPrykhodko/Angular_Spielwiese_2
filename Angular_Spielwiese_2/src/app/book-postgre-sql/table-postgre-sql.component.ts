@@ -15,23 +15,23 @@ export class TablePostgreSQLComponent implements OnInit, OnDestroy {
 
   constructor(private PostgreSQLService: PostgreSQLService) {}
 
-  ngOnInit(): void {
-    // Automatische Aktualisierung, wenn sich die Daten im Service ändern
-    
-    this.subscription = this.PostgreSQLService.booksPostgreSQL$.subscribe((data) => {   
-      this.booksPostgreSQLList = []; // Liste leeren
-                                                                               
-      data.forEach((book: any) => {
-        if (book.title) {    
-          this.booksPostgreSQLList.push(book.title);
-        }
-        console.log(this.booksPostgreSQLList);
-      });
-    });
+  ngOnInit(): void {       
+    this.refreshData();
   }
 
   refreshData(): void {
-    this.PostgreSQLService.refreshData();
+    this.booksPostgreSQLList = [];
+    // Alte Subscriptions aufräumen, falls vorhanden
+    this.subscription.unsubscribe();
+    // API aufrufen
+    this.subscription = this.PostgreSQLService.fetchData().subscribe((data) => {                   
+      // alle Titles in authorsList speichern
+      data.forEach((book: any) => {                       
+        if (book.title) {                                             
+          this.booksPostgreSQLList.push(book.title);
+        }
+      });
+    });
   }
 
   ngOnDestroy(): void {
