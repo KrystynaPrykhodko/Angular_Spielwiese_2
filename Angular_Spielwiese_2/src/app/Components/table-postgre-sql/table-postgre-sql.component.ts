@@ -1,12 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
-import { PostgreSQLService } from '../services/postgreSQL.service';
-import { ButtonComponent } from '../button/button.component';
+import { PostgreSQLService } from '../../services/postgreSQL.service';
+import { ButtonComponent } from '../../shared/Components/button/button.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { Book } from '../models/book.model';
+import { Book } from '../../models/book.model';
 
 @Component({
   selector: 'app-table-postgre-sql',

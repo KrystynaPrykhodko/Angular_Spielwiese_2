@@ -1,4 +1,4 @@
-// PostgreSQLService - Service zur Verwaltung von Buchdaten aus einer PostgreSQL-Datenbank über eine API
+// PostgreSQLService - Service zur Verwaltung von Buchdaten aus einer PostgreSQL-Datenbank über eine SpringBoot-API
 // =====================================================================================================
 
 import { HttpClient } from "@angular/common/http"
@@ -10,6 +10,7 @@ import { Observable } from "rxjs"
 })
 export class PostgreSQLService {
     private apiURL = 'http://localhost:9090/api/books'
+    
 
     constructor(private http: HttpClient) {}
 

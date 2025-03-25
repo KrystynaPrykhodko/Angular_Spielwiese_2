@@ -9,7 +9,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
-import { ButtonComponent } from "../../button/button.component"; 
+import { ButtonComponent } from '../../shared/Components/button/button.component'; 
 import { Subscription } from 'rxjs';
 
 @Component({
