@@ -7,10 +7,13 @@
 
 <ul>
     <li *ngFor="let book of booksH2$ | async">
-      <strong>{{ book.title }}</strong> von {{ book.author.name }}<br>
-      Erscheinungsdatum: {{ book.publicationDate | date }}<br>
-      Genre: {{ book.genre }}<br>
-      Preis: {{ book.price | currency:'EUR' }}
-      <hr />
+        <strong>Book</strong><br>
+        Titel: {{ book.title }}<br>
+        PublicationDate: {{ book.publicationDate | date }}<br>
+        Genre: {{ book.genre }}<br>
+        Preis: {{ book.price | currency:'EUR' }}<br>
+        Author: {{ book.author.id }}<br>
+        AgeInYears: {{ book.price | currency:'EUR' }}
+        <hr />
     </li>
 </ul>

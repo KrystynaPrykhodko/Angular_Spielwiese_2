@@ -18,17 +18,11 @@ export class BooksH2Effects {
             this.actions$.pipe(
               ofType(loadBooksH2),
               mergeMap(() =>
-                this.h2Service.fetchData().pipe(
+                this.h2Service.fetchBooks().pipe(
                   map(books => {
                     // console.log('Bücher von der API (roh):', books);
                     const transformedBooks = books.map(book => ({
-                      ...book,
-                      author: {
-                        id: book.author?.id ?? 0,
-                        name: 'Unbekannt',
-                        birthDate: new Date('1970-01-01'),
-                        nationality: 'Unbekannt'
-                      }
+                      ...book
                     }));
                     // console.log('Transformierte Bücher:', transformedBooks);
                     return loadBooksH2Success({ books: transformedBooks });

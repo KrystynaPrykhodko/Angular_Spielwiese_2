@@ -1,9 +1,9 @@
 import { createAction, props } from '@ngrx/store';
-import { Book } from '../../models/book.model';
+import { BookH2 } from '../../models/bookH2.model';
 
 export const loadBooksH2 = createAction('[Books] Load Books');
 
 export const loadBooksH2Success = createAction(
-    '[Books] Load Books Success',
-    props<{ books: Book[] }>()
+    '[Books H2] Load Books Success',
+    props<{ books: BookH2[] }>()
 );

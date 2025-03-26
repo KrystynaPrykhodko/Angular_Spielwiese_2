@@ -4,17 +4,24 @@
 import { HttpClient } from "@angular/common/http"
 import { Injectable } from "@angular/core"
 import { Observable } from "rxjs"
-import { Book } from "../models/book.model"
+import { BookH2 } from "../models/bookH2.model"
+import { AuthorH2 } from "../models/authorH2.model"
 
 @Injectable({
     providedIn: 'root',
 })
 export class H2Service {
-    private apiURL = 'http://localhost:7070/api/v1/book'
+    private bookApiURL = 'http://localhost:7070/api/v1/book'
+    private authorApiURL = 'http://localhost:7070/api/v1/book'
 
     constructor(private http: HttpClient) {}
 
-    fetchData(): Observable<Book[]> {
-        return this.http.get<Book[]>(this.apiURL)
+    fetchBooks(): Observable<BookH2[]> {
+            return this.http.get<BookH2[]>(this.bookApiURL)
+        }
+
+    fetchAuthors(): Observable<AuthorH2[]> {
+        return this.http.get<AuthorH2[]>(this.authorApiURL);
     }
+    
 }
