@@ -3,7 +3,10 @@ import { provideHttpClient } from '@angular/common/http';
 import { provideRouter } from '@angular/router';
 import { provideStore } from '@ngrx/store';
 import { booksReducer } from './store/books/books.reducer';
+import { booksH2Reducer } from './store/booksH2/booksH2.reducer'; 
 import { provideStoreDevtools } from '@ngrx/store-devtools';
+import { provideEffects } from '@ngrx/effects';
+import { BooksH2Effects } from './store/booksH2/booksH2.effects';
 
 import { BookFormComponent } from './Components/book-form/book-form.component';
 import { TableComponent } from './Components/table/table.component';
@@ -37,7 +40,14 @@ export const appConfig: ApplicationConfig = {
       { path: '**', redirectTo: 'homepage' },
       
     ]),
-    provideStore({ books: booksReducer }), // Registriere den booksReducer
-    provideStoreDevtools(), provideAnimationsAsync(), // Fügt die Redux DevTools hinzu  // für DEBUGGING
+    // Registriert den booksReducer und den booksH2Reducer
+    provideStore({ 
+      books: booksReducer,
+      booksH2: booksH2Reducer
+    }),
+    // Fügt die Redux DevTools hinzu  // für DEBUGGING
+    provideEffects(BooksH2Effects),
+    provideStoreDevtools(), 
+    provideAnimationsAsync(), 
   ],
 };

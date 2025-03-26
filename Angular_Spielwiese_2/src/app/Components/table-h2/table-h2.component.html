@@ -4,3 +4,13 @@
         <p>Here is the list of all books from H2.</p>
     </div>
 </span>
+
+<ul>
+    <li *ngFor="let book of booksH2$ | async">
+      <strong>{{ book.title }}</strong> von {{ book.author.name }}<br>
+      Erscheinungsdatum: {{ book.publicationDate | date }}<br>
+      Genre: {{ book.genre }}<br>
+      Preis: {{ book.price | currency:'EUR' }}
+      <hr />
+    </li>
+</ul>

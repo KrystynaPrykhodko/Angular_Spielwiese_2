@@ -164,6 +164,7 @@ export class BookFormComponent implements OnDestroy {
         id: Math.floor(Math.random() * 1000),
         name: this.bookForm.value.authorName,
         birthDate: new Date(),
+        nationality: 'Unknown', // Add a default or form value for nationality
       },
       genre: this.bookForm.value.genre,
       price: this.bookForm.value.price,
