@@ -35,7 +35,8 @@ export class TablePostgreSQLComponent implements OnInit, OnDestroy {
     // Alte Subscriptions aufräumen, falls vorhanden
     this.subscription.unsubscribe();
     // API aufrufen
-    this.subscription = this.PostgreSQLService.fetchData().subscribe((data) => {         console.log('DATA ->', data);             
+    this.subscription = this.PostgreSQLService.fetchData().subscribe((data) => {         
+      // console.log('DATA ->', data);             
       // alle Titles in authorsList speichern
       this.booksPostgreSQLList = data;
       

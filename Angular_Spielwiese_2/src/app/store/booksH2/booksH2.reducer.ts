@@ -6,7 +6,6 @@ import { loadBooksH2Success } from './booksH2.actions';
 
 export const booksH2Reducer = createReducer(
     initialBooksState,
-    on(loadBooksH2Success, (state, { books }) => ({
-        ...state, 
-        books})) 
+    on(loadBooksH2Success, 
+      (state, { books }) => ({...state, books})) 
 );

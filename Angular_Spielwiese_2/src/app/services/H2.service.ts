@@ -12,7 +12,7 @@ import { AuthorH2 } from "../models/authorH2.model"
 })
 export class H2Service {
     private bookApiURL = 'http://localhost:7070/api/v1/book'
-    private authorApiURL = 'http://localhost:7070/api/v1/book'
+    private authorApiURL = 'http://localhost:7070/api/v1/author'
 
     constructor(private http: HttpClient) {}
 
