@@ -28,6 +28,7 @@ export const appConfig: ApplicationConfig = {
     provideRouter([
       { path: '', component: HomepageComponent },
       { path: 'create', component: BookFormComponent },
+      { path: 'createH2', component: BookFormComponent },
       { path: 'edit/:bookId', component: BookFormComponent },
       { path: 'view/:bookId', component: BookFormComponent },
       { path: 'delete/:bookId', component: BookFormComponent },

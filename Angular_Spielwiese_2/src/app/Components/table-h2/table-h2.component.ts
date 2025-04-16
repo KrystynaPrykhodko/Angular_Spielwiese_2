@@ -11,7 +11,7 @@ import { loadAuthorsH2 } from '../../store/authorsH2/authorsH2.actions';
 import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { ButtonComponent } from '../../shared/Components/button/button.component';
+import { ButtonComponentH2 } from '../../shared/Components/button-h2/button-h2.component';
 
 @Component({
   selector: 'app-table-h2',
@@ -19,7 +19,7 @@ import { ButtonComponent } from '../../shared/Components/button/button.component
             MatTableModule,
             MatIconModule,
             MatButtonModule,
-            ButtonComponent
+            ButtonComponentH2
   ],
   templateUrl: './table-h2.component.html',
   styleUrl: './table-h2.component.css'
