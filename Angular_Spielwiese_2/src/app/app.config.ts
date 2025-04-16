@@ -20,6 +20,7 @@ import { ImpressumComponent } from './Components/impressum/impressum.component';
 import { TablePostgreSQLComponent } from './Components/table-postgre-sql/table-postgre-sql.component';
 import { TableH2Component } from './Components/table-h2/table-h2.component';
 import { AuthorsH2Effects } from './store/authorsH2/authorsH2.effects';
+import { BookFormComponentH2 } from './Components/book-form-h2/book-form-h2.component';
 
 
 export const appConfig: ApplicationConfig = {
@@ -28,7 +29,7 @@ export const appConfig: ApplicationConfig = {
     provideRouter([
       { path: '', component: HomepageComponent },
       { path: 'create', component: BookFormComponent },
-      { path: 'createH2', component: BookFormComponent },
+      { path: 'createH2', component: BookFormComponentH2 },
       { path: 'edit/:bookId', component: BookFormComponent },
       { path: 'view/:bookId', component: BookFormComponent },
       { path: 'delete/:bookId', component: BookFormComponent },
