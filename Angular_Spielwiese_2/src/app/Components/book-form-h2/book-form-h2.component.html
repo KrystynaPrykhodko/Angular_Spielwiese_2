@@ -14,10 +14,10 @@
 
         <mat-form-field appearance="fill" style="width: 100%;">
             <mat-label>Author</mat-label>
-            <mat-select formControlName="authorName">
-                <mat-option *ngFor="let author of authors" [value]="author.name">
-                    {{ author.name }}
-                </mat-option>
+            <mat-select formControlName="authorId">
+              <mat-option *ngFor="let author of authors" [value]="author.id">
+                {{ author.id }}
+              </mat-option>
             </mat-select>
         </mat-form-field>
 

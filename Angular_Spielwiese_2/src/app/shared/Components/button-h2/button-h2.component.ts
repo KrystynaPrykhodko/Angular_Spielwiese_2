@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 export class ButtonComponentH2 {
   constructor(private router: Router) {}
 
-  createBook(): void {  
+  createBookH2(): void {  
     this.router.navigate(['/createH2']);
   }
 }

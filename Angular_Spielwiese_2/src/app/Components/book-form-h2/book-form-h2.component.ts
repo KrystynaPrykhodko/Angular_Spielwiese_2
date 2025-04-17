@@ -5,9 +5,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../store/app.state';
 import { FormsModule, ReactiveFormsModule, FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { selectAllBooks, selectAllAuthors } from '../../store/books/books.selectors';
-import { createBook, editBook, deleteBook } from '../../store/books/books.actions';
-import { Book } from '../../models/book.model';
+import { selectAllBooks } from '../../store/books/books.selectors';
+import { editBook, deleteBook } from '../../store/books/books.actions';
+import { createBookH2 } from '../../store/booksH2/booksH2.actions';
+import { BookH2 } from '../../models/bookH2.model';
+import { AuthorH2 } from '../../models/authorH2.model';
 
 import { MatTableModule } from '@angular/material/table';
 import { MatInputModule } from '@angular/material/input';
@@ -19,10 +21,11 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatOptionModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
+import { selectAllAuthorsH2 } from '../../store/authorsH2/authorsH2.selector';
 
 
 @Component({
-  selector: 'app-book-form',
+  selector: 'app-book-form-h2',
   imports: [
     CommonModule,
     FormsModule,
@@ -54,7 +57,7 @@ export class BookFormComponentH2 implements OnDestroy {
   mode: 'CREATE' | 'EDIT' | 'VIEW' | 'DELETE' | null = null;
   bookId?: number;
 
-  authors: { id: number; name: string; birthDate: Date }[] = [];
+  authors: AuthorH2[] = [];
 
   constructor(
     private fb: FormBuilder, 
@@ -83,7 +86,7 @@ export class BookFormComponentH2 implements OnDestroy {
     return this.fb.group({
       title: ['', Validators.required],
       publicationDate: [null, Validators.required],
-      authorName: ['', Validators.required],
+      authorId: [null, Validators.required], 
       genre: ['', Validators.required],
       price: [0, [Validators.required, Validators.min(0)]],
     });
@@ -94,7 +97,7 @@ export class BookFormComponentH2 implements OnDestroy {
     const path = this.route.snapshot.routeConfig?.path;
     this.bookId = Number(this.route.snapshot.paramMap.get('bookId'));
 
-    if (path === 'create') {
+    if (path === 'createH2') {
       this.mode = 'CREATE';
     } else if (path === 'edit/:bookId') {
       this.mode = 'EDIT';
@@ -108,7 +111,7 @@ export class BookFormComponentH2 implements OnDestroy {
   }
 
   private loadAuthors(): void {
-    const authorsSub = this.store.select(selectAllAuthors).subscribe((authors) => {
+    const authorsSub = this.store.select(selectAllAuthorsH2).subscribe((authors) => {
       this.authors = authors;
     });
     this.subscriptions.add(authorsSub);
@@ -133,16 +136,15 @@ export class BookFormComponentH2 implements OnDestroy {
 
   // Handhabt das Speichern von Daten basierend auf dem Modus
   onSubmit(): void {
-    const book = this.getBookFromForm();
-
-    if (this.mode === 'CREATE') {
-      this.store.dispatch(createBook({ book }));
+    const book = this.getBookFromForm();                               
+    if (this.mode === 'CREATE') {                                      
+      this.store.dispatch(createBookH2({ book }));
       this.navigateToTable();
     } else if (this.mode === 'EDIT') {
-      this.store.dispatch(editBook({ book }));
-      this.navigateToTable();
+      //this.store.dispatch(editBook({ book }));
+      //this.navigateToTable();
     } else if (this.mode === 'DELETE') {
-      this.isDeleteMode = true;
+      //this.isDeleteMode = true;
     } 
   }
 
@@ -153,24 +155,20 @@ export class BookFormComponentH2 implements OnDestroy {
       this.navigateToTable();
     }
   }
-  
+
   // Extrahiert BUchdaten aus dem Formular
-  private getBookFromForm(): Book {
-    return {  
-      id: this.mode === 'CREATE' ? Math.floor(Math.random() * 1000) : this.bookId!,
+  private getBookFromForm(): BookH2 {
+    return {
+      id: null, // 0 weil ID im Backend generiert wird
       title: this.bookForm.value.title,
-      publicationDate: this.bookForm.value.publicationDate, 
+      publicationDate: this.bookForm.value.publicationDate,
       author: {
-        id: Math.floor(Math.random() * 1000),
-        name: this.bookForm.value.authorName,
-        birthDate: new Date(),
-        nationality: 'Unknown', // Add a default or form value for nationality
+        id: this.bookForm.value.authorId, // ID vom ausgewählten Autor
       },
       genre: this.bookForm.value.genre,
       price: this.bookForm.value.price,
-      }
-    
-  }; 
+    };
+  }
 
   // Navigiert zurück zur Tabelle
   private navigateToTable(): void {

@@ -16,10 +16,17 @@ export class H2Service {
 
     constructor(private http: HttpClient) {}
 
+    // books
     fetchBooks(): Observable<BookH2[]> {
-            return this.http.get<BookH2[]>(this.bookApiURL)
-        }
+        return this.http.get<BookH2[]>(this.bookApiURL)
+    }
 
+    createBook(book: BookH2): Observable<void> {
+        return this.http.post<void>(this.bookApiURL, book);
+    }
+
+
+    // authors
     fetchAuthors(): Observable<AuthorH2[]> {
         return this.http.get<AuthorH2[]>(this.authorApiURL);
     }

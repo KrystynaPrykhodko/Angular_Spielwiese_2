@@ -1,5 +1,5 @@
 export interface BookH2 {
-    id: number;
+    id: number | null;
     title: string;
     publicationDate: Date;
     author: {
