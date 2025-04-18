@@ -13,4 +13,8 @@ button:hover {
 /* Table-Bereich */
 .table{
     flex: 1;
-  }
+}
+
+.padded-container {
+    padding: 50px;
+}

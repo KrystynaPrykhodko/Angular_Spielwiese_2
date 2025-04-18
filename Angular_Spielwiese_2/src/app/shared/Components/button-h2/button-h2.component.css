@@ -9,3 +9,7 @@ button {
 button:hover {
     background-color: burlywood;
 }
+
+.button-container {
+    margin: 16px;
+}

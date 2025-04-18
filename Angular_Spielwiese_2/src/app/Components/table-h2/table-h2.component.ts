@@ -5,6 +5,7 @@ import { BookH2 } from '../../models/bookH2.model';
 import { AuthorH2 } from '../../models/authorH2.model';
 import { Store} from '@ngrx/store';
 import { selectAllBooksH2 } from '../../store/booksH2/booksH2.selector';
+import { AppStateH2 } from '../../store/app.stateH2';
 import { selectAllAuthorsH2 } from '../../store/authorsH2/authorsH2.selector';
 import { loadBooksH2 } from '../../store/booksH2/booksH2.actions';
 import { loadAuthorsH2 } from '../../store/authorsH2/authorsH2.actions';
@@ -12,6 +13,8 @@ import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { ButtonComponentH2 } from '../../shared/Components/button-h2/button-h2.component';
+import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-table-h2',
@@ -27,11 +30,12 @@ import { ButtonComponentH2 } from '../../shared/Components/button-h2/button-h2.c
 export class TableH2Component implements OnInit {
   booksH2$: Observable<BookH2[]>;
   authorsH2$: Observable<AuthorH2[]>;
+  private subscription: Subscription = new Subscription();
 
   booksTableData: BookH2[] = [];
 
 
-  constructor(private store: Store) {
+  constructor(private store: Store<AppStateH2>, private router: Router) {
     this.booksH2$ = this.store.select(selectAllBooksH2);
     this.authorsH2$ = this.store.select(selectAllAuthorsH2);
   }
@@ -42,7 +46,7 @@ export class TableH2Component implements OnInit {
 
     this.booksH2$.subscribe(books => {
       this.booksTableData = books;
-      //console.log('Geladene Bücher aus dem Store:', books);
+      console.log('Geladene Bücher aus dem Store:', books);
     });
 
 
@@ -55,16 +59,17 @@ export class TableH2Component implements OnInit {
   }
 
   
-      editBook(authorH2: AuthorH2): void {
-        console.log('editAthorH2');
+      editBook(book: BookH2): void {
+        console.log('edit BookH2', book);
       }
     
-      deleteBook(authorH2: AuthorH2): void {
-        console.log('deleteAthorH2');
-      }
+  deleteBook(book: BookH2): void {
+    this.router.navigate(['/deleteH2', book.id]);
+    console.log('delete BookH2', book);
+  }
     
-      viewBook(authorH2: AuthorH2): void {
-        console.log('viewAthorH2');
+      viewBook(book: BookH2): void {
+        console.log('view BookH2', book);
       }
 
 }

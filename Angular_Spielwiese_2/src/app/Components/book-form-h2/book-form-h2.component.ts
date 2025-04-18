@@ -7,7 +7,7 @@ import { AppState } from '../../store/app.state';
 import { FormsModule, ReactiveFormsModule, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { selectAllBooks } from '../../store/books/books.selectors';
 import { editBook, deleteBook } from '../../store/books/books.actions';
-import { createBookH2 } from '../../store/booksH2/booksH2.actions';
+import { createBookH2, deleteBookH2 } from '../../store/booksH2/booksH2.actions';
 import { BookH2 } from '../../models/bookH2.model';
 import { AuthorH2 } from '../../models/authorH2.model';
 
@@ -22,6 +22,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatOptionModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { selectAllAuthorsH2 } from '../../store/authorsH2/authorsH2.selector';
+import { selectAllBooksH2 } from '../../store/booksH2/booksH2.selector';
 
 
 @Component({
@@ -105,7 +106,7 @@ export class BookFormComponentH2 implements OnDestroy {
       this.mode = 'VIEW';
       this.isViewMode = true;
       this.bookForm.disable(); // Form deaktivieren im Ansicht-Modus
-    } else if (path === 'delete/:bookId') {
+    } else if (path === 'deleteH2/:bookId') {
       this.mode = 'DELETE';
     }
   }
@@ -118,14 +119,15 @@ export class BookFormComponentH2 implements OnDestroy {
   }
 
   // Lädt Buchdaten aus dem Store
-  private loadBookData(): void {
-    const booksSub= this.store.select(selectAllBooks).subscribe((books) => {
+  private loadBookData(): void {                                                   
+    const booksSub= this.store.select(selectAllBooksH2).subscribe((books) => {      
       const book = books.find((b) => b.id === this.bookId);
-      if (book) {
+      if (book) {                                                             
         this.bookForm.patchValue({
           title: book.title,
           publicationDate: book.publicationDate,
-          authorName: book.author.name,
+          //authorName: book.author.name,
+          authorId: book.author.id,
           genre: book.genre,
           price: book.price,
         });
@@ -144,14 +146,14 @@ export class BookFormComponentH2 implements OnDestroy {
       //this.store.dispatch(editBook({ book }));
       //this.navigateToTable();
     } else if (this.mode === 'DELETE') {
-      //this.isDeleteMode = true;
+      this.isDeleteMode = true;
     } 
   }
 
   // Löscht das Buch im DELETE-Modus
   confirmDelete(): void {
-    if (this.mode === 'DELETE' && this.bookId) {  
-      this.store.dispatch(deleteBook({ bookId: this.bookId }));
+    if (this.mode === 'DELETE' && this.bookId) {
+      this.store.dispatch(deleteBookH2({ bookId: this.bookId }));   
       this.navigateToTable();
     }
   }

@@ -6,7 +6,10 @@ import {
   loadBooksH2,
   loadBooksH2Success,
   createBookH2,
-  createBookH2Success
+  createBookH2Success,
+  deleteBookH2,
+  deleteBookH2Success,
+  deleteBookH2Failure
 } from "./booksH2.actions";
 import { map, tap, mergeMap, catchError } from "rxjs/operators";
 import { of } from "rxjs";
@@ -16,6 +19,7 @@ import { of } from "rxjs";
 export class BooksH2Effects {
     loadBooks$;
     createBook$;
+    deleteBook$;
 
     constructor(
         private actions$: Actions, // Alle Actions, die in der Anwendung ausgelöst werden, werden hier abgefangen
@@ -44,7 +48,7 @@ export class BooksH2Effects {
             )
         );
 
-        // Buch erstellen
+      // Buch erstellen
       this.createBook$ = createEffect(() =>
         this.actions$.pipe(
           ofType(createBookH2),
@@ -55,6 +59,23 @@ export class BooksH2Effects {
               catchError(error => {
                 console.error('Fehler beim Erstellen des Buches:', error);
                 return of({ type: '[Books H2] Create Book Failed' });
+              })
+            )
+          )
+        )
+      );
+
+      // Buch löschen
+      this.deleteBook$ = createEffect(() =>
+        this.actions$.pipe(
+          ofType(deleteBookH2),
+          mergeMap(({ bookId }) =>
+            this.h2Service.deleteBook(bookId).pipe(
+              tap(() => this.store.dispatch(loadBooksH2())), // Direkt nach erfolgreichem Löschen neu laden
+              map(() => deleteBookH2Success()),
+              catchError(error => {
+                console.error('Fehler beim Löschen des Buches:', error);
+                return of(deleteBookH2Failure({ error }));
               })
             )
           )
