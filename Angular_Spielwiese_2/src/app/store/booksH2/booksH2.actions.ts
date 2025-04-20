@@ -6,6 +6,7 @@ export const loadBooksH2Success = createAction('[Books H2] Load Books Success', 
 
 export const createBookH2 = createAction('[Books H2] Create Book', props<{ book: BookH2 }>());
 export const createBookH2Success = createAction('[Books H2] Create Book Success');
+export const createBookH2Failure = createAction('[Books H2] Create Book Failure', props<{ error: any }>());
 
 export const deleteBookH2 = createAction('[Books H2] Delete Book', props<{ bookId: number }>());
 export const deleteBookH2Success = createAction('[Books H2] Delete Book Success');

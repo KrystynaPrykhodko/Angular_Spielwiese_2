@@ -9,7 +9,8 @@ import {
   createBookH2Success,
   deleteBookH2,
   deleteBookH2Success,
-  deleteBookH2Failure
+  deleteBookH2Failure,
+  createBookH2Failure
 } from "./booksH2.actions";
 import { map, tap, mergeMap, catchError } from "rxjs/operators";
 import { of } from "rxjs";
@@ -58,7 +59,7 @@ export class BooksH2Effects {
               map(() => createBookH2Success()),
               catchError(error => {
                 console.error('Fehler beim Erstellen des Buches:', error);
-                return of({ type: '[Books H2] Create Book Failed' });
+                return of(createBookH2Failure({ error }));
               })
             )
           )
