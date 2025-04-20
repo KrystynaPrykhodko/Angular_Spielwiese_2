@@ -5,9 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../store/app.state';
 import { FormsModule, ReactiveFormsModule, FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { selectAllBooks } from '../../store/books/books.selectors';
-import { editBook, deleteBook } from '../../store/books/books.actions';
-import { createBookH2, deleteBookH2 } from '../../store/booksH2/booksH2.actions';
+import { createBookH2, deleteBookH2, editBookH2 } from '../../store/booksH2/booksH2.actions';
 import { BookH2 } from '../../models/bookH2.model';
 import { AuthorH2 } from '../../models/authorH2.model';
 
@@ -100,7 +98,7 @@ export class BookFormComponentH2 implements OnDestroy {
 
     if (path === 'createH2') {
       this.mode = 'CREATE';
-    } else if (path === 'edit/:bookId') {
+    } else if (path === 'editH2/:bookId') {
       this.mode = 'EDIT';
     } else if (path === 'viewH2/:bookId') {
       this.mode = 'VIEW';                                                 
@@ -144,8 +142,8 @@ export class BookFormComponentH2 implements OnDestroy {
       this.store.dispatch(createBookH2({ book }));
       this.navigateToTable();
     } else if (this.mode === 'EDIT') {
-      //this.store.dispatch(editBook({ book }));
-      //this.navigateToTable();
+      this.store.dispatch(editBookH2({ book }));
+      this.navigateToTable();
     } else if (this.mode === 'DELETE') {
       this.isDeleteMode = true;
     } 

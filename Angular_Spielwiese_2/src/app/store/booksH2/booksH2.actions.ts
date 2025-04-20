@@ -11,3 +11,7 @@ export const createBookH2Failure = createAction('[Books H2] Create Book Failure'
 export const deleteBookH2 = createAction('[Books H2] Delete Book', props<{ bookId: number }>());
 export const deleteBookH2Success = createAction('[Books H2] Delete Book Success');
 export const deleteBookH2Failure = createAction('[Books H2] Delete Book Failure', props<{ error: any }>());
+
+export const editBookH2 = createAction('[Books H2] Edit Book', props<{ book: BookH2 }>());
+export const editBookH2Success = createAction('[Books H2] Edit Book Success');  
+export const editBookH2Failure = createAction('[Books H2] Edit Book Failure', props<{ error: any }>());

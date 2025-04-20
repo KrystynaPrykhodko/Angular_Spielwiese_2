@@ -27,7 +27,19 @@ export class H2Service {
 
     deleteBook(bookId: number): Observable<void> {
         return this.http.delete<void>(`${this.bookApiURL}/${bookId}`);
-      }
+    }
+
+    editBook(book: BookH2): Observable<void> {
+        const params = {
+          title: book.title,
+          authorId: book.author?.id?.toString() || '',
+          genre: book.genre || '',
+          price: book.price?.toString() || ''
+        };
+      
+        return this.http.put<void>(`${this.bookApiURL}/${book.id}`, null, { params });
+    }
+
 
     // authors
     fetchAuthors(): Observable<AuthorH2[]> {

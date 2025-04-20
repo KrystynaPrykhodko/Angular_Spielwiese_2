@@ -31,6 +31,7 @@ export const appConfig: ApplicationConfig = {
       { path: 'create', component: BookFormComponent },
       { path: 'createH2', component: BookFormComponentH2 },
       { path: 'edit/:bookId', component: BookFormComponent },
+      { path: 'editH2/:bookId', component: BookFormComponentH2 },
       { path: 'view/:bookId', component: BookFormComponent },
       { path: 'viewH2/:bookId', component: BookFormComponentH2 },
       { path: 'delete/:bookId', component: BookFormComponent },
