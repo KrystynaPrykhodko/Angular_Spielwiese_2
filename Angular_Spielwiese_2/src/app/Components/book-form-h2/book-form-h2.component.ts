@@ -102,10 +102,11 @@ export class BookFormComponentH2 implements OnDestroy {
       this.mode = 'CREATE';
     } else if (path === 'edit/:bookId') {
       this.mode = 'EDIT';
-    } else if (path === 'view/:bookId') { 
-      this.mode = 'VIEW';
+    } else if (path === 'viewH2/:bookId') {
+      this.mode = 'VIEW';                                                 
       this.isViewMode = true;
-      this.bookForm.disable(); // Form deaktivieren im Ansicht-Modus
+      this.bookForm.disable(); // Das deaktiviert das gesamte Formular
+      // Der Button SAVE wird über HTML ([disabled]="isViewMode) deaktiviert, weil es nicht zum FormControl gehört
     } else if (path === 'deleteH2/:bookId') {
       this.mode = 'DELETE';
     }

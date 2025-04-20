@@ -68,8 +68,9 @@ export class TableH2Component implements OnInit {
     console.log('delete BookH2', book);
   }
     
-      viewBook(book: BookH2): void {
-        console.log('view BookH2', book);
-      }
+  viewBook(book: BookH2): void {
+    this.router.navigate(['/viewH2', book.id]);
+    console.log('view BookH2', book);
+  }
 
 }
