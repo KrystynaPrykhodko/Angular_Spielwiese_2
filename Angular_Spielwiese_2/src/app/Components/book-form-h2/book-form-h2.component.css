@@ -1,0 +1,12 @@
+.full-width {
+    width: 100%;
+}
+
+.form-container {
+    max-width: 600px; 
+    margin: auto;
+}
+
+.text-right {
+    text-align: right;
+}

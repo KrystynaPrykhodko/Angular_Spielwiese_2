@@ -1,0 +1,27 @@
+/* Container */
+mat-sidenav-container {
+  height: 100vh;
+}
+
+/* Sidebar */
+mat-sidenav {
+  background-color: #f4f4f4;
+  border-right: 1px solid #ccc;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Hauptinhalt */
+mat-sidenav-content {
+  flex: 1;
+  padding: 2rem;
+  overflow-y: auto;
+  transition: margin-left 0.3s ease-in-out;
+}
+
+/* Hamburger-Button Styling */
+.hamburger {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  z-index: 4000 !important;
+}

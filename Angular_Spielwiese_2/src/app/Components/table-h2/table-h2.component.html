@@ -1,0 +1,69 @@
+<span id="authorsTemplate">
+    <div class="padded-container">
+        <h1>Bücher H2</h1>
+        <p>Here is the list of all books from H2.</p>
+        <!-- Hier muss es aktualisiert werden, da die Daten nicht gecasht werden, sondern direkt von der API kommen --> 
+    </div>
+</span>
+
+<span id="tableTemplate">
+    <app-button-h2></app-button-h2>
+  
+    <table mat-table [dataSource]="booksTableData" class="mat-elevation-z8">
+  
+      <!-- Title Column -->
+      <ng-container matColumnDef="title">
+        <th mat-header-cell *matHeaderCellDef> Title </th>
+        <td mat-cell *matCellDef="let book"> {{ book.title }} </td>
+      </ng-container>
+  
+      <!-- Author Column -->
+      <ng-container matColumnDef="author">
+        <th mat-header-cell *matHeaderCellDef> Author </th>
+        <td mat-cell *matCellDef="let book"> {{ book.author.id }} </td>
+      </ng-container>
+  
+      <!-- Publication Date Column -->
+      <ng-container matColumnDef="publicationDate">
+        <th mat-header-cell *matHeaderCellDef> Publication Date </th>
+        <td mat-cell *matCellDef="let book"> {{ book.publicationDate | date: 'mediumDate' }} </td>
+      </ng-container>
+  
+      <!-- Genre Column -->
+      <ng-container matColumnDef="genre">
+        <th mat-header-cell *matHeaderCellDef> Genre </th>
+        <td mat-cell *matCellDef="let book"> {{ book.genre || 'N/A' }} </td>
+      </ng-container>
+  
+      <!-- Price Column -->
+      <ng-container matColumnDef="price">
+        <th mat-header-cell *matHeaderCellDef> Price </th>
+        <td mat-cell *matCellDef="let book"> {{ book.price | currency }} </td>
+      </ng-container>
+
+      <!-- AgeInYears Column -->
+      <ng-container matColumnDef="ageInYears">
+        <th mat-header-cell *matHeaderCellDef> Age in Years </th>
+        <td mat-cell *matCellDef="let book"> {{ book.ageInYears || 'N/A' }} </td>
+      </ng-container>
+  
+      <!-- Actions Column -->
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let book">
+          <button  mat-raised-button color="primary" (click)="editBook(book)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-raised-button color="warn" (click)="deleteBook(book)">
+            <mat-icon>delete</mat-icon>
+          </button>
+          <button mat-raised-button (click)="viewBook(book)">
+            <mat-icon>visibility</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+  
+      <tr mat-header-row *matHeaderRowDef="['title', 'author', 'publicationDate', 'genre', 'price', 'ageInYears', 'actions']"></tr>
+      <tr mat-row *matRowDef="let row; columns: ['title', 'author', 'publicationDate', 'genre', 'price', 'ageInYears',  'actions'];"></tr>
+    </table>
+  </span>
